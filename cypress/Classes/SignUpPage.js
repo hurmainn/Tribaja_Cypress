@@ -1,13 +1,7 @@
-import { Talent } from "C:\\Users\\dell\\CYPRESS PROJECTS\\FOLIUM AI\\TRIBAJA\\cypress\\Classes\\Talent.js"
+import { Talent } from "./Talent";
 export class SignUpPage{
     constructor(){
-        const talent = new Talent(
-            "John",
-            "Doe",
-            "john.doe@example.com",
-            "Developer",
-            "password123"
-          );
+        const talent = new Talent()
     }
     getContinueWithGoogleButton(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div[1]/button[1]")
@@ -40,6 +34,16 @@ export class SignUpPage{
     }
     
     inputSignUpDetails(talent){
-        this.getEmailAddressTextBox().type)
+        this.getFirstNameTextBox().type(talent.firstName)
+        this.getLastNameTextBox().type(talent.lastName)
+        this.getEmailAddressTextBox().type(talent.emailAddress)
+        
+        this.getRoleDropdown().click()
+        cy.get('.rc-virtual-list-holder-inner').invoke("show")
+        cy.get(".ant-select-item-option-content").eq(0).click({force:true})
+
+        this.getPasswordTextBox().type(talent.password)
+        this.getRepeatPasswordTextBox().type(talent.password)
+        this.getContinueButton().click()
     }
 }
