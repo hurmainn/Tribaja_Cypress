@@ -1,4 +1,9 @@
+import { getmyCookie } from "../utils/getMyCookie"
+import { Talent } from "./Talent"
 export class LoginPage {
+    constructor() {
+        const talent = new Talent()
+    }
     getContinueWithGoogleButton() {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div[1]/button[1]")
     }
@@ -16,5 +21,13 @@ export class LoginPage {
     }
     getForgetPasswordDiv() {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/div/a")
+    }
+
+    LogIn(talent) {
+        this.getEmailAddressTextBox().type(talent.emailAddress)
+        this.getPasswordTextBox().type(talent.password,{force:true})
+        this.getLoginButton().click({force:true})
+  
+
     }
 }

@@ -33,7 +33,7 @@ export class SignUpPage{
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/button")
     }
     
-    inputSignUpDetails(talent){
+    SignUp(talent){
         this.getFirstNameTextBox().type(talent.firstName)
         this.getLastNameTextBox().type(talent.lastName)
         this.getEmailAddressTextBox().type(talent.emailAddress)
