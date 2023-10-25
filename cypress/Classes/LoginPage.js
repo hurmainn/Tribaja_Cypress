@@ -24,10 +24,11 @@ export class LoginPage {
     }
 
     LogIn(talent) {
+        cy.visit('https://app.staging.tribaja.co/')
+        cy.xpath('/html/body/div[1]/div/div/div[1]/a').as('LoginPageButton')
+        cy.get('@LoginPageButton').click({ force: true })
         this.getEmailAddressTextBox().type(talent.emailAddress)
-        this.getPasswordTextBox().type(talent.password,{force:true})
-        this.getLoginButton().click({force:true})
-  
-
+        this.getPasswordTextBox().type(talent.password, { force: true })
+        this.getLoginButton().click({ force: true })
     }
 }

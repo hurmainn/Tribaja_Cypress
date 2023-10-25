@@ -1,4 +1,6 @@
 import { Talent } from "./Talent";
+import 'cypress-xpath';
+
 export class SignUpPage{
     constructor(){
         const talent = new Talent()

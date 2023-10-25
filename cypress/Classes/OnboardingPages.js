@@ -7,6 +7,12 @@ export class Onboarding {
     getGetStartedButton() {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div/div/a")
     }
+    getGoToDashboardButton(){
+        return cy.xpath('/html/body/div[1]/div/div/div[2]/div/div[4]/button')
+    }
+    goToDashboard(){
+        this.getGoToDashboardButton().click({force:true})
+    }
     getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }

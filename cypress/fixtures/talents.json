@@ -1,0 +1,32 @@
+{
+    "talents": [
+        {
+            "firstName": "Hurmain",
+            "lastName": "Javaid",
+            "emailAddress": "hurmain.javed@folium.ai",
+            "role": "Talent",
+            "password": "lilly1234"
+        },
+        {
+            "firstName": "Hurmain",
+            "lastName": "Javaid 2",
+            "emailAddress": "hurmain.javed+1@folium.ai",
+            "role": "Talent",
+            "password": "lilly1234"
+        },
+        {
+            "firstName": "Hurmain",
+            "lastName": "Javaid 3",
+            "emailAddress": "hurmain.javed+2@folium.ai",
+            "role": "Talent",
+            "password": "lilly1234"
+        },
+        {
+            "firstName": "Hurmain",
+            "lastName": "Javaid 5",
+            "emailAddress": "hurmain.javed+8@folium.ai",
+            "role": "Talent",
+            "password": "lilly1234"
+        }
+    ]
+}
