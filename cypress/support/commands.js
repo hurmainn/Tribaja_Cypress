@@ -14,7 +14,7 @@
 
 //cypress commands to set and get global talents variable from fixture
 let talentData = null;
-
+let updatetalentData=null;
 
 Cypress.Commands.add("setTalentDataFromFixture", () => {
     if (!talentData) {
@@ -25,11 +25,26 @@ Cypress.Commands.add("setTalentDataFromFixture", () => {
     }
 });
 
+Cypress.Commands.add("setUpdateTalentDataFromFixture", () => {
+    if (!updatetalentData) {
+        return cy.fixture("updatedTalents.json").then((updatetalents) => {
+            updatetalentData = updatetalents;
+            return updatetalentData;
+        });
+    }
+});
+
 Cypress.Commands.add("getTalentData", () => {
     if (!talentData) {
         return cy.setTalentDataFromFixture();
     }
     return cy.wrap(talentData);
+});
+Cypress.Commands.add("getUpdateTalentData", () => {
+    if (!updatetalentData) {
+        return cy.setUpdateTalentDataFromFixture();
+    }
+    return cy.wrap(updatetalentData);
 });
 //
 // -- This is a child command --

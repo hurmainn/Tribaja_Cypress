@@ -238,14 +238,14 @@ export class Profile {
 
     }
     //edit whole profile
-    EditProfile() {
+    EditProfile(talentt) {
         //before clicking
         this.EditProfileButton.click()
         cy.get('.modal').should('be.visible')
-        editProfileForm.fillPersonalInfo()
-        editProfileForm.fillExperienceAndEducationInfo()
-        editProfileForm.fillLinksInfo()
-        editProfileForm.submitForm()
-        editProfileForm.exitForm()
+        editProfileForm.fillPersonalInfo(talentt)
+        editProfileForm.fillExperienceAndEducationInfo(talentt)
+        editProfileForm.fillLinksInfo(talentt)
+        editProfileForm.submitForm(talentt)
+        editProfileForm.exitForm(talentt)
     }
 }

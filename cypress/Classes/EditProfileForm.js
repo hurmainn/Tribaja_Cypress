@@ -153,7 +153,8 @@ export class EditProfileForm {
     //methods to update each single value
     //in personalInfo
     UpdatefullName(fullName) {
-        
+        this.FullNameTextBox.clear().type(fullName)
+        this.SubmitButton.click()
     }
     UpdateGender() {
 
@@ -256,8 +257,9 @@ export class EditProfileForm {
 
     }
     //methods
-    fillPersonalInfo() {
+    fillPersonalInfo(talentt) {
         this.PersonalInfoTextSpan.click({ force: true })
+        this.UpdatefullName(talentt.fullName)
     }
     fillExperienceAndEducationInfo() {
         this.ExpANDEducationTextSpan.click({ force: true })

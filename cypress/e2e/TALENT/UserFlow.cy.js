@@ -11,13 +11,18 @@ const dashboard = new Dashboard()
 const profile = new Profile()
 describe('LOGIN AS TALENT', () => {
     let talentDataa;
+    let updateTalentDataa;
     before(() => {
         cy.viewport(2500, 1399)
         cy.setTalentDataFromFixture();
+        cy.setUpdateTalentDataFromFixture();
         cy.getTalentData().then((talentData) => {
             talentDataa = talentData;
             // cy.log(talentss)
         });
+        cy.getUpdateTalentData().then((updateTalentData)=>{
+            updateTalentDataa=updateTalentData;
+        })
     })
     it("View Profile", () => {
         cy.visit('https://app.staging.tribaja.co/')
@@ -38,7 +43,8 @@ describe('LOGIN AS TALENT', () => {
 
         //1. single comprehensive end to end user scenario where user updates all information at once
         //2. separate functions for each information update
-        profile.EditProfile()
+        const updateTalent=updateTalentDataa.updatetalents[0]
+        profile.EditProfile(updateTalent)
     })
     // it("Edit Profile",()=>{
 
