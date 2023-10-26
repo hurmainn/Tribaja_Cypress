@@ -13,7 +13,6 @@ export class EditProfileForm {
     get LinksTextSpan() {
         return cy.get('[data-node-key="links"]')
     }
-
     get FullNameTextBox() {
         return cy.get('[name=full_name]')
     }
@@ -55,7 +54,7 @@ export class EditProfileForm {
     }
 
     get ExitFormButton() {
-        return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[1]/div/svg')
+        return cy.get('.modal .editProfile__container:nth-child(1) svg[viewBox="0 0 24 24"]')
     }
 
     //exp and education
@@ -150,11 +149,114 @@ export class EditProfileForm {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[3]/div/form/label[5]/div')
     }
 
+    //methods to update each single value
+    //in personalInfo
+    UpdatefullName() {
+
+    }
+    UpdateGender() {
+
+    }
+    UpdatePronouns() {
+
+    }
+    UpdateEthnicity() {
+
+    }
+    UpdateCountry() {
+
+    }
+    UpdateCity() {
+
+    }
+    UpdatePhoneNumber() {
+
+    }
+    UpdateBio() {
+
+    }
+
+    //in experience and education
+    UpdateSkills() {
+
+    }
+    UpdateExperienceLevel() {
+
+    }
+    UpdatePassionIndustry() {
+
+    }
+    UpdateTechnologiesList() {
+
+    }
+    UpdateEducationLevel() {
+
+    }
+    UpdateInstituteNameInEducation() {
+
+    }
+    UpdateDegreeName() {
+
+    }
+    UpdateStartYear() {
+
+    }
+    UpdateEndYear() {
+
+    }
+    AddMoreEducation() {
+
+    }
+    UpdateCompanyName() {
+
+    }
+    UpdateRoleInCompany() {
+
+    }
+    UpdateStartDateInCompany() {
+
+    }
+    UpdateEndDateInCompany() {
+
+    }
+    AddMoreExperience() {
+
+    }
+    UpdateCertificateName() {
+
+    }
+    UpdateInstituteNameInCertification() {
+
+    }
+    UpdateCredentials() {
+
+    }
+    AddMoreCertificate() {
+
+    }
+
+    //in links
+    UpdateLinkedIn() {
+
+    }
+    UpdatePortfolio() {
+
+    }
+    UpdateGitHub() {
+
+    }
+    UpdateTwitter() {
+
+    }
+    UploadResume() {
+
+    }
+    ClickSubmitButton() {
+
+    }
     //methods
     fillPersonalInfo() {
         this.PersonalInfoTextSpan.click({ force: true })
-
-
     }
     fillExperienceAndEducationInfo() {
         this.ExpANDEducationTextSpan.click({ force: true })

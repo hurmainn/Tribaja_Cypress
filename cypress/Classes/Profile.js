@@ -1,5 +1,7 @@
+import { Dashboard } from "./Dashboard"
 import { EditProfileForm } from "./EditProfileForm"
-let editProfileForm=new EditProfileForm()
+let editProfileForm = new EditProfileForm()
+let dashboard = new Dashboard()
 export class Profile {
     //get elements
     get PublicViewButton() {
@@ -76,6 +78,9 @@ export class Profile {
         return cy.get('.job-tile').find('button:nth-child(2)')
     }
 
+    get UserNameDivInProfileView() {
+        return cy.get('#ProfileTopSectionDiv p:nth-child(1)')
+    }
 
     //methods
     CheckTalentProfileUrl() {
@@ -116,14 +121,131 @@ export class Profile {
         this.ApplyToJobButtonsInJobTiles.should('not.have.class', 'disabled')
         this.ViewJobButtonInJobTiles.should('not.have.class', 'disabled')
     }
+
+    CheckUserName(talent) {
+        const fullName = talent.firstName + ' ' + talent.lastName;
+        this.UserNameDivInProfileView.invoke('text')
+            .then((text) => {
+                expect(text).to.equal(fullName)
+            })
+    }
+    //user details in profile view
+    CheckUserDetailsInProfileView(talent) {
+        cy.url().then((url) => {
+            if (!url.includes('profile/talent/')) {
+                dashboard.ViewProfile()
+            }
+        })
+        this.CheckUserName(talent)
+    }
+    //verification functions for updated values
+    VerifyfullName() {
+
+    }
+    VerifyGender() {
+
+    }
+    VerifyPronouns() {
+
+    }
+    VerifyEthnicity() {
+
+    }
+    VerifyCountry() {
+
+    }
+    VerifyCity() {
+
+    }
+    VerifyPhoneNumber() {
+
+    }
+    VerifyBio() {
+
+    }
+
+    //in experience and education
+    VerifySkills() {
+
+    }
+    VerifyExperienceLevel() {
+
+    }
+    VerifyPassionIndustry() {
+
+    }
+    VerifyTechnologiesList() {
+
+    }
+    VerifyEducationLevel() {
+
+    }
+    VerifyInstituteNameInEducation() {
+
+    }
+    VerifyDegreeName() {
+
+    }
+    VerifyStartYear() {
+
+    }
+    VerifyEndYear() {
+
+    }
+
+    VerifyCompanyName() {
+
+    }
+    VerifyRoleInCompany() {
+
+    }
+    VerifyStartDateInCompany() {
+
+    }
+    VerifyEndDateInCompany() {
+
+    }
+
+    VerifyCertificateName() {
+
+    }
+    VerifyInstituteNameInCertification() {
+
+    }
+    VerifyCredentials() {
+
+    }
+
+
+    //in links
+    VerifyLinkedIn() {
+
+    }
+    VerifyPortfolio() {
+
+    }
+    VerifyGitHub() {
+
+    }
+    VerifyTwitter() {
+
+    }
+    VerifyResume() {
+
+    }
+
+    VerifyWholeProfile() {
+
+    }
+    //edit whole profile
     EditProfile() {
-       //before clicking
-         this.EditProfileButton.click()
-         cy.get('.modal').should('be.visible')
-         editProfileForm.fillPersonalInfo()
-         editProfileForm.fillExperienceAndEducationInfo()
-         editProfileForm.fillLinksInfo()
-         editProfileForm.submitForm()
-         editProfileForm.exitForm()
+        //before clicking
+        this.EditProfileButton.click()
+        cy.get('.modal').should('be.visible')
+        editProfileForm.fillPersonalInfo()
+        editProfileForm.fillExperienceAndEducationInfo()
+        editProfileForm.fillLinksInfo()
+        editProfileForm.submitForm()
+        editProfileForm.exitForm()
     }
 }

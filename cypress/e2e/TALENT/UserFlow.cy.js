@@ -19,16 +19,28 @@ describe('LOGIN AS TALENT', () => {
             // cy.log(talentss)
         });
     })
-    it("Edit Profile", () => {
+    it("View Profile", () => {
         cy.visit('https://app.staging.tribaja.co/')
         const talent = talentDataa.talents[3]; //signing up user 1, if i will want all users to sign up , i will just use for loop
         loginPage.LogIn(talent)
+        //check if the user has logged in with the same details
+        //**DO LATER: check session storage here so that we know it's the same user
+
+        //check the details before editing - should be same with which the user logged in
+       // dashboard.CheckUserDetailsInDashboard(talent)
+       // profile.CheckUserDetailsInProfileView(talent)
         cy.wait(7000)
         dashboard.CheckTalentDashboardUrl()
         dashboard.ViewProfile()
-        profile.CheckTalentProfileUrl()
-        // profile.TestProfileForElementsExistence()
-        // profile.TestButtonsEnability()
+        //profile.CheckTalentProfileUrl()
+        //profile.TestProfileForElementsExistence()
+        //profile.TestButtonsEnability()
+
+        //1. single comprehensive end to end user scenario where user updates all information at once
+        //2. separate functions for each information update
         profile.EditProfile()
     })
+    // it("Edit Profile",()=>{
+
+    // })
 })

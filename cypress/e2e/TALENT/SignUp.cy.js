@@ -19,7 +19,6 @@ describe("SIGN UP", () => {
     it('SignUp with all valid inputs', () => {
         cy.visit('https://app.staging.tribaja.co/')
         const talent = talentDataa.talents[3]; //signing up user 1, if i will want all users to sign up , i will just use for loop
-      //  cy.log(talent)
         signUpPage.SignUp(talent)
     })
 })
