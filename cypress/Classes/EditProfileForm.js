@@ -55,6 +55,7 @@ export class EditProfileForm {
 
     get ExitFormButton() {
         return cy.get('.modal .editProfile__container:nth-child(1) svg[viewBox="0 0 24 24"]')
+
     }
 
     //exp and education
@@ -151,8 +152,8 @@ export class EditProfileForm {
 
     //methods to update each single value
     //in personalInfo
-    UpdatefullName() {
-
+    UpdatefullName(fullName) {
+        
     }
     UpdateGender() {
 
@@ -270,5 +271,7 @@ export class EditProfileForm {
     }
     exitForm() {
         this.ExitFormButton.click({ force: true })
+        cy.wait(1000)
+        cy.get('.modal').should('not.be.visible')
     }
 }
