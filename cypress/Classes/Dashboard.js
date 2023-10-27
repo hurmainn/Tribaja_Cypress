@@ -1,5 +1,5 @@
 import { Talent } from "./Talent"
-import { getFullName } from "../utils/getfullName"
+
 export class Dashboard {
 
     get DropDownElement() {

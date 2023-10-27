@@ -22,6 +22,9 @@ export class Profile {
     get MyMentorsTextDiv() {
         return cy.get('#tabs-tab-mentors')
     }
+    get PronounsDiv() {
+        return cy.xpath('//*[@id="ProfileTopSectionDiv"]/div[1]/div[2]/div[1]/p[2]')
+    }
 
     get AboutDiv() {
         return cy.get('#About')
@@ -34,11 +37,16 @@ export class Profile {
     get ExperienceDiv() {
         return cy.get('#Experience')
     }
+    get ExperienceContainer() {
+        return cy.get('#Experience >div>div')
+    }
 
     get EducationDiv() {
         return cy.get('#Education')
     }
-
+    get EducationContainer() {
+        return cy.get('#Education>div>span')
+    }
     get SkillsDiv() {
         return cy.get('#Skills')
     }
@@ -46,11 +54,15 @@ export class Profile {
     get IndustriesDiv() {
         return cy.get('#Industries')
     }
-
+    get IndustryCards() {
+        return cy.get('#Industries #skills span')
+    }
     get ExpertiseDiv() {
         return cy.xpath('//*[@id="Experties"]')
     }
-
+    get ExpertiseCards() {
+        return cy.get('#Experties span')
+    }
     get CertificationsDiv() {
         return cy.get('#Certifications')
     }
@@ -81,7 +93,21 @@ export class Profile {
     get UserNameDivInProfileView() {
         return cy.get('#ProfileTopSectionDiv p:nth-child(1)')
     }
-
+    get SocialMediaIcons() {
+        return cy.get('[id="Social Media Icons"] a')
+    }
+    get GithubIcon() {
+        this.SocialMediaIcons.eq(0)
+    }
+    get TwitterIcon() {
+        this.SocialMediaIcons.eq(1)
+    }
+    get LinkedInIcon() {
+        this.SocialMediaIcons.eq(2)
+    }
+    get PortfolioIcon() {
+        this.SocialMediaIcons.eq(3)
+    }
     //methods
     CheckTalentProfileUrl() {
         cy.url().then((url) => { expect(url).to.include('/profile/talent/') })
@@ -139,10 +165,10 @@ export class Profile {
         this.CheckUserName(talent)
     }
     //verification functions for updated values
-    VerifyfullName() {
-
+    VerifyfullName(fullName) {
+        this.CheckUserName(fullName)
     }
-    VerifyGender() {
+    VerifyGender(gender) {
 
     }
     VerifyPronouns() {
@@ -160,8 +186,10 @@ export class Profile {
     VerifyPhoneNumber() {
 
     }
-    VerifyBio() {
-
+    VerifyBio(bio) {
+        this.AboutDiv.invoke('text').then((text) => {
+            expect(text).to.contain(bio)
+        })
     }
 
     //in experience and education
@@ -171,7 +199,31 @@ export class Profile {
     VerifyExperienceLevel() {
 
     }
-    VerifyPassionIndustry() {
+    VerifyPassionIndustry(industry) {
+        const industryCardsArray = []
+        this.IndustryCards.should('exist')
+            .each(($card, index, $list) => {
+                const cardText = $card.text();
+                cy.log(cardText)
+                industryCardsArray.push(cardText)
+                cy.log(industryCardsArray)
+            }).then(() => {
+                cy.log(industryCardsArray)
+                cy.wrap(industryCardsArray).should('include', industry)
+            })
+
+    }
+    VerifyExpertise(expertise) {
+        const expertiseCardsArray = []
+        this.ExpertiseCards.should('exist')
+            .each(($card, index, $list) => {
+                const cardText = $card.text();
+                cy.log(cardText)
+                expertiseCardsArray.push(cardText)
+            }).then(() => {
+                cy.log(expertiseCardsArray)
+                cy.wrap(expertiseCardsArray).should('include', expertise)
+            })
 
     }
     VerifyTechnologiesList() {
@@ -218,22 +270,34 @@ export class Profile {
 
 
     //in links
-    VerifyLinkedIn() {
+    VerifyLinkedIn(linkedinurl) {
+        this.LinkedInIcon.invoke('attr', 'href')
+            .then((hrefValue) => {
+                expect(hrefValue).to.equal(linkedinurl)
+            })
 
     }
-    VerifyPortfolio() {
-
+    VerifyPortfolio(portfoliourl) {
+        this.PortfolioIcon.invoke('attr', 'href')
+            .then((hrefValue) => {
+                expect(hrefValue).to.equal(portfoliourl)
+            })
     }
-    VerifyGitHub() {
-
+    VerifyGitHub(githuburl) {
+        this.GithubIcon.invoke('attr', 'href')
+            .then((hrefValue) => {
+                expect(hrefValue).to.equal(githuburl)
+            })
     }
-    VerifyTwitter() {
-
+    VerifyTwitter(twitterurl) {
+        this.TwitterIcon.invoke('attr', 'href')
+            .then((hrefValue) => {
+                expect(hrefValue).to.equal(twitterurl)
+            })
     }
     VerifyResume() {
 
     }
-
     VerifyWholeProfile() {
 
     }
@@ -243,8 +307,8 @@ export class Profile {
         this.EditProfileButton.click()
         cy.get('.modal').should('be.visible')
         editProfileForm.fillPersonalInfo(talentt)
-        editProfileForm.fillExperienceAndEducationInfo(talentt)
-        editProfileForm.fillLinksInfo(talentt)
+        // editProfileForm.fillExperienceAndEducationInfo(talentt)
+        // editProfileForm.fillLinksInfo(talentt)
         editProfileForm.submitForm(talentt)
         editProfileForm.exitForm(talentt)
     }

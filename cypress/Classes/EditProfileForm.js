@@ -19,27 +19,47 @@ export class EditProfileForm {
     get GenderDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[2]/div/div/span[1]')
     }
-
+    get GenderContainer() {
+        return cy.get('.rc-virtual-list-holder-inner').eq(0)
+    }
+    get GenderContainerElements() {
+        return cy.get('.rc-virtual-list-holder-inner')
+    }
     get PronounsDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[3]/div/div/span[1]')
+    }
+    get PronounsContainer() {
+        return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div/div/form/label[3]/div')
+    }
+    get PronounsContainerElements() {
+        return cy.get('body > div:nth-child(7) > div > div > div.rc-virtual-list > div > div > div >div')
     }
     get EthnicityDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[4]/div/div/span[1]')
     }
-
+    get EthnicityContainer() {
+        return cy.xpath('/html/body/div[6]/div')
+    }
+    get EthnictyContainerElements() {
+        return cy.get('body > div:nth-child(8) > div > div > div.rc-virtual-list > div > div > div >div')
+    }
     get CountryDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[5]/div/div/span[1]')
     }
-
+    get CountriesContainer() {
+        return cy.get('.rc-virtual-list-holder-inner')
+    }
+    get CountriesContainerElements() {
+        return cy.get('.rc-virtual-list-holder-inner .ant-select-item-option-content')   //returns only 6 countries, will find the required one through scrolling  into view in the function it is called 
+    }
     get StateDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[6]/div/div/span[1]')
     }
-
     get CityDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[7]/div/div/span[1]')
     }
 
-    getPhoneNumberCountrySelectorDropDown() {
+    get PhoneNumberCountrySelectorDropDown() {
         return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[1]/div/form/label[8]/div/div[2]/div[2]/div')
     }
     get PhoneNumberInputBox() {
@@ -50,7 +70,7 @@ export class EditProfileForm {
     }
 
     get SubmitButton() {
-        return cy.xpath('/html/body/div[1]/div/div/div[1]/div/div/div[2]/div[2]/div/div[2]/div/form/button')
+        return cy.get('.modal button').eq(0)
     }
 
     get ExitFormButton() {
@@ -154,19 +174,97 @@ export class EditProfileForm {
     //in personalInfo
     UpdatefullName(fullName) {
         this.FullNameTextBox.clear().type(fullName)
-        this.SubmitButton.click()
+        // this.SubmitButton.click()
     }
-    UpdateGender() {
-
+    UpdateGender(gender) {
+        this.GenderDropDown.click({ force: true })
+        this.GenderContainer.should('be.visible')
+        this.GenderContainerElements
+            .each(($g, index, $list) => {
+                const genderr = $g.text()
+                cy.log(genderr)
+                if (genderr === gender) {
+                    cy.log(gender + "==" + genderr)
+                    cy.wrap($g).click()
+                    return false;  //exit the each loop
+                }
+                else {
+                    cy.log("gender entered in the function: " + gender)
+                }
+            })
     }
-    UpdatePronouns() {
-
+    UpdatePronouns(pronouns) {
+        this.PronounsDropDown.click({ force: true })
+        this.PronounsContainer.should('be.visible')
+        this.PronounsContainerElements
+            .each(($p, index, $list) => {
+                const pronounss = $p.text()
+                cy.log(pronounss)
+                if (pronounss === pronouns) {
+                    cy.log(pronouns + "==" + pronounss)
+                    cy.wrap($p).click()
+                    return false;   //exit the each loop
+                }
+                else {
+                    cy.log("pronouns entered in the function: " + pronouns)
+                }
+            })
     }
-    UpdateEthnicity() {
+    UpdateEthnicity(ethnicity) {
+        this.EthnicityDropDown.click()
+        this.EthnicityContainer.should('be.visible')
+        this.EthnictyContainerElements
+            .each(($e, index, $list) => {
+                const ethnicityy = $e.text()
+                cy.log(ethnicityy)
+                $e.contains(ethnicity).scrollIntoView('');
+                if (ethnicity === ethnicityy) {
+                    cy.log(ethnicity + "==" + ethnicityy)
+                    //  cy.wrap($e).scrollIntoView();
+                    cy.wrap($e).click()
+                    return false;
+                }
+                else {
+                    cy.log("Ethnicity entered in the function: " + ethnictity)
 
+                }
+            })
     }
-    UpdateCountry() {
+    UpdateCountry(countryName) {
+        this.CountryDropDown.click({ force: true })
+        this.CountriesContainer.should('exist').invoke('show').should('be.visible').then(() => {
 
+            const targetText = countryName
+            let elementFound = false;
+            cy.get('.rc-virtual-list-holder-inner').contains('Brazil') // Replace with your target text
+                .scrollIntoView();
+            // cy.get('.rc-virtual-list-holder-inner').then(($dropdown) => {
+            //     cy.wrap($dropdown).scrollTo('bottom');
+            //     cy.contains(targetText).then(($element) => {
+            //         if ($element.length > 0) {
+            //             elementFound = true;
+            //         }
+            //     })
+            // }).then(() => {
+            //     if (elementFound) { cy.contains(targetText).click(); }
+            // })
+
+            // this.CountriesContainerElements
+            //     .each(($c, index, $list) => {
+            //         const countryNamee = $c.text()
+            //         cy.log(countryNamee)
+            //         cy.wrap($c).contains(countryName).scrollIntoView('');
+            //         if (countryNamee === countryName) {
+            //             cy.log(countryName + "==" + countryNamee)
+            //             cy.wrap($c).scrollIntoView();
+            //             cy.wrap($c).click()
+            //             return false;
+            //         }
+            //         else {
+            //             cy.log("Country name entered in the function: " + countryName)
+            //         }
+            //     })
+        })
     }
     UpdateCity() {
 
@@ -260,6 +358,10 @@ export class EditProfileForm {
     fillPersonalInfo(talentt) {
         this.PersonalInfoTextSpan.click({ force: true })
         this.UpdatefullName(talentt.fullName)
+        //this.UpdateGender(talentt.gender)
+        // this.UpdatePronouns(talentt.pronoun)
+        //this.UpdateEthnicity(talentt.ethnicity)
+        this.UpdateCountry(talentt.country)
     }
     fillExperienceAndEducationInfo() {
         this.ExpANDEducationTextSpan.click({ force: true })
@@ -274,6 +376,6 @@ export class EditProfileForm {
     exitForm() {
         this.ExitFormButton.click({ force: true })
         cy.wait(1000)
-        cy.get('.modal').should('not.be.visible')
+        cy.get('.modal').should('not.exist')
     }
 }

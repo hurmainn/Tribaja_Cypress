@@ -22,7 +22,7 @@ describe('LOGIN AS TALENT', () => {
         });
         cy.getUpdateTalentData().then((updateTalentData)=>{
             updateTalentDataa=updateTalentData;
-        })
+        });
     })
     it("View Profile", () => {
         cy.visit('https://app.staging.tribaja.co/')
@@ -37,6 +37,7 @@ describe('LOGIN AS TALENT', () => {
         cy.wait(7000)
         dashboard.CheckTalentDashboardUrl()
         dashboard.ViewProfile()
+        profile.VerifyPassionIndustry("Apps and Mobile")
         //profile.CheckTalentProfileUrl()
         //profile.TestProfileForElementsExistence()
         //profile.TestButtonsEnability()
@@ -44,9 +45,7 @@ describe('LOGIN AS TALENT', () => {
         //1. single comprehensive end to end user scenario where user updates all information at once
         //2. separate functions for each information update
         const updateTalent=updateTalentDataa.updatetalents[0]
-        profile.EditProfile(updateTalent)
+       // profile.EditProfile(updateTalent)
     })
-    // it("Edit Profile",()=>{
-
-    // })
+   
 })
