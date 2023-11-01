@@ -23,7 +23,6 @@ describe('LOGIN AS TALENT', () => {
     cy.visit('https://app.staging.tribaja.co/')
     const talent = talentDataa.talents[3]; //signing up user 1, if i will want all users to sign up , i will just use for loop
     loginPage.LogIn(talent)
-    cy.wait(4500)
 
     cy.url().then((url) => {
       if (url.includes('onboarding')) {

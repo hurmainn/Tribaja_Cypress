@@ -14,8 +14,8 @@
 
 //cypress commands to set and get global talents variable from fixture
 let talentData = null;
-let updatetalentData=null;
-
+let updatetalentData = null;
+import 'cypress-xpath'
 Cypress.Commands.add("setTalentDataFromFixture", () => {
     if (!talentData) {
         return cy.fixture("talents.json").then((talents) => {
@@ -46,6 +46,9 @@ Cypress.Commands.add("getUpdateTalentData", () => {
     }
     return cy.wrap(updatetalentData);
 });
+Cypress.Commands.add('configureXpath', () => {
+    cy.xpath({ xmlMode: true });
+  });
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })

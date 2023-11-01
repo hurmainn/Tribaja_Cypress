@@ -47,4 +47,5 @@ describe('LOGIN AS TALENT', () => {
         const updateTalent=updateTalentDataa.updatetalents[0]
        // profile.EditProfile(updateTalent)
     })
+   
 })

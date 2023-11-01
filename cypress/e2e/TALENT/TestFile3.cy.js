@@ -11,6 +11,7 @@ const dashboard = new Dashboard()
 const profile = new Profile()
 describe('LOGIN AS TALENT', () => {
     let talentDataa;
+    let talent;
     let updateTalentDataa;
     before(() => {
         cy.viewport(2500, 1399)
@@ -20,31 +21,42 @@ describe('LOGIN AS TALENT', () => {
             talentDataa = talentData;
             // cy.log(talentss)
         });
-        cy.getUpdateTalentData().then((updateTalentData)=>{
-            updateTalentDataa=updateTalentData;
+        cy.getUpdateTalentData().then((updateTalentData) => {
+            updateTalentDataa = updateTalentData;
         });
     })
     it("View Profile", () => {
         cy.visit('https://app.staging.tribaja.co/')
-        const talent = talentDataa.talents[3]; //signing up user 1, if i will want all users to sign up , i will just use for loop
+        talent = talentDataa.talents[5]; //signing up user 1, if i will want all users to sign up , i will just use for loop
         loginPage.LogIn(talent)
         //check if the user has logged in with the same details
         //**DO LATER: check session storage here so that we know it's the same user
 
         //check the details before editing - should be same with which the user logged in
-       // dashboard.CheckUserDetailsInDashboard(talent)
-       // profile.CheckUserDetailsInProfileView(talent)
-        cy.wait(7000)
-        dashboard.CheckTalentDashboardUrl()
-        dashboard.ViewProfile()
-        profile.VerifyPassionIndustry("Apps and Mobile")
+        // dashboard.CheckUserDetailsInDashboard(talent)
+        // profile.CheckUserDetailsInProfileView(talent)
+
         //profile.CheckTalentProfileUrl()
         //profile.TestProfileForElementsExistence()
         //profile.TestButtonsEnability()
 
         //1. single comprehensive end to end user scenario where user updates all information at once
         //2. separate functions for each information update
-        const updateTalent=updateTalentDataa.updatetalents[0]
-       // profile.EditProfile(updateTalent)
+        // const updateTalent=updateTalentDataa.updatetalents[0]
+        // profile.EditProfile(updateTalent)
+    })
+
+    it("Second test", () => {
+        cy.wait(7000)
+        dashboard.CheckTalentDashboardUrl()
+        dashboard.ViewProfile()
+        
+    })
+
+    it("Third Test", () => {
+        profile.VerifyPassionIndustry("Apps and Mobile")
+    })
+    after(()=>{
+        dashboard.LogOut(talent)
     })
 })

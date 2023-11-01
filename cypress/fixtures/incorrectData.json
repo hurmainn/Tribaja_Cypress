@@ -1,0 +1,24 @@
+{
+    "incorrectTalents": [
+        {
+            "Email":"hurmain.javed@folium.ai",
+            "Password":"lilly"
+        },
+        {
+            "Email":"hurmain.javed+234546@folium.ai",
+            "Password":"lilly1234"
+        },
+        {
+            "Email":"hurmain.javed@gmail.com",
+            "Password":"jfnjn"
+        },
+        {
+            "Email":"hurmain.javed@folium.ai",
+            "Password":""
+        },
+        {
+            "Email":"",
+            "Password":"lilly1234"
+        }
+    ]
+}

@@ -3,14 +3,20 @@ import { Talent } from "./Talent"
 export class Dashboard {
 
     get DropDownElement() {
-        return cy.get('main > .profile__box-avatar')
+        return cy.get('main > .profile__box-avatar').invoke('show')
 
     }
     get ProfileContainer() {
         return cy.get(".dashboardNavbar__profile-container")
     }
+    get ProfileBoxList(){
+        return cy.get('.dashboardNavbar__profile-container .profile__box-list')
+    }
     get ViewProfileLink() {
         return cy.get(".dashboardNavbar__profile-container .profile__box-details a")
+    }
+    get LogOutButton(){
+        return cy.get('.dashboardNavbar__profile-container .profile__box-list a').eq(2)
     }
     CheckTalentDashboardUrl() {
         cy.url().then((url) => { expect(url).to.include('dashboard') })
@@ -45,11 +51,15 @@ export class Dashboard {
     CheckUserDetailsInDashboard(talent) {
         this.CheckUserName(talent)
     }
-    ViewProfile() {
+    ViewProfile(talent) {
         this.DropDownElement.click()
         this.ProfileContainer.invoke('show').should('be.visible')
         this.ViewProfileLink.should('exist').click()
     }
 
-
+    LogOut(talent) {
+        this.DropDownElement.click()
+        this.ProfileBoxList.invoke('show').should('be.visible')
+        this.LogOutButton.click()
+    }
 }

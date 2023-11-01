@@ -236,7 +236,7 @@ export class EditProfileForm {
 
             const targetText = countryName
             let elementFound = false;
-            cy.get('.rc-virtual-list-holder-inner').contains('Brazil') // Replace with your target text
+            cy.get('.rc-virtual-list-holder-inner').contains('targetText') // Replace with your target text
                 .scrollIntoView();
             // cy.get('.rc-virtual-list-holder-inner').then(($dropdown) => {
             //     cy.wrap($dropdown).scrollTo('bottom');
@@ -267,7 +267,7 @@ export class EditProfileForm {
         })
     }
     UpdateCity() {
-
+        
     }
     UpdatePhoneNumber() {
 
