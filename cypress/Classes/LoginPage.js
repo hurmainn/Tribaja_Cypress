@@ -1,4 +1,4 @@
-import { getmyCookie } from "../utils/getMyCookie"
+import { getmyCookie } from "../utils/getAllCookies"
 import { Talent } from "./Talent"
 export class LoginPage {
     constructor() {

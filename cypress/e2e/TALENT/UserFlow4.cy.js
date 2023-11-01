@@ -2,9 +2,10 @@ import { LoginPage } from "../../Classes/LoginPage"
 import { Onboarding } from "../../Classes/OnboardingPages"
 import { SignUpPage } from "../../Classes/SignUpPage"
 import { Talent } from "../../Classes/Talent"
-
+import { setAllCookies } from "../../utils/setAllCookies"
 import { Dashboard } from "../../Classes/Dashboard"
 import { Profile } from "../../Classes/Profile"
+import { getAllCookies } from "../../utils/getAllCookies"
 const loginPage = new LoginPage()
 const onboarding = new Onboarding()
 const dashboard = new Dashboard()
@@ -40,28 +41,13 @@ describe('LOGIN AS TALENT', () => {
         talent = talentDataa.talents[4]; //signing up user 1, if i will want all users to sign up , i will just use for loop
         loginPage.LogIn(talent)
         //cy.wait(5000)
-        cy.getAllCookies().then((cookies) => {
-            cookies.forEach((cookie) => {
-                const cookieObject = {
-                    name: cookie.name,
-                    value: cookie.value
-                }
-                cookiesArray.push(cookieObject)
-            });
-            cy.log(cookiesArray)
-        });
+       cookiesArray= getAllCookies()
     })
     it('Onboarding', () => {
         //SETTING COOKIES
-        for (let i = 0; i < cookiesArray.length; i++) {
-            const cookie = cookiesArray[i];
-            cy.setCookie(cookie.name, cookie.value);
-        }
-        cy.then(() => {
-            cy.visit('https://app.staging.tribaja.co/')
-        })
-        cy.wait(5000)
-
+        setAllCookies(cookiesArray)
+        cy.visit('https://app.staging.tribaja.co/')
+        cy.wait(1000)
         cy.url().then((url) => {
             if (url.includes('onboarding')) {
                 onboarding.getGetStartedButton()//check if button is clickable

@@ -2,7 +2,7 @@ import { LoginPage } from "../../Classes/LoginPage"
 import { Onboarding } from "../../Classes/OnboardingPages"
 import { SignUpPage } from "../../Classes/SignUpPage"
 import { Talent } from "../../Classes/Talent"
-import { getmyCookie } from "../../utils/getMyCookie"
+import { getmyCookie } from "../../utils/getAllCookies"
 
 
 let url1 = ""

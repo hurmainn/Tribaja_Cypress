@@ -5,8 +5,8 @@ import { Talent } from "../../Classes/Talent"
 import { Dashboard } from "../../Classes/Dashboard"
 import { Profile } from "../../Classes/Profile"
 import { setLocalStorageItem, getLocalStorageItem } from "../../utils/localStorageUtil"
-import { setMyCookie } from "../../utils/setCookie"
-import { getmyCookie } from "../../utils/getMyCookie"
+import { setMyCookie } from "../../utils/setAllCookies"
+import { getmyCookie } from "../../utils/getAllCookies"
 const loginPage = new LoginPage()
 const onboarding = new Onboarding()
 const dashboard = new Dashboard()
