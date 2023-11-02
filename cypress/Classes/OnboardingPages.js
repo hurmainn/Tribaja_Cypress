@@ -7,11 +7,11 @@ export class Onboarding {
     getGetStartedButton() {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div/div/a")
     }
-    getGoToDashboardButton(){
+    getGoToDashboardButton() {
         return cy.xpath('/html/body/div[1]/div/div/div[2]/div/div[4]/button')
     }
-    goToDashboard(){
-        this.getGoToDashboardButton().click({force:true})
+    goToDashboard() {
+        this.getGoToDashboardButton().click({ force: true })
     }
     getRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -56,7 +56,7 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -77,7 +77,7 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -92,12 +92,12 @@ export class Onboarding {
                 case 3:
                     expect(questionText).to.include(this.question.q3);
                     this.getAnswersAllOptions().should('not.have.class', 'disabled');
-                    
+
                     this.getAnswersAllOptions().then(($elements) => {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -117,7 +117,7 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -137,27 +137,27 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
-                //    this.getElementsCount().then((count) => {
-                //         cy.log("no. of button elements: ", count)
-                //         random = this.getRandomNumber(0, count)
-                //         cy.log("Random Number: ", random)
+                    //    this.getElementsCount().then((count) => {
+                    //         cy.log("no. of button elements: ", count)
+                    //         random = this.getRandomNumber(0, count)
+                    //         cy.log("Random Number: ", random)
 
-                //         this.getAnswersAllOptions().eq(random).click({ force: true })
-                //     })
+                    //         this.getAnswersAllOptions().eq(random).click({ force: true })
+                    //     })
                     break;
                 case 6:
                     expect(questionText).to.include(this.question.q6);
                     this.getAnswersAllOptions().should('not.have.class', 'disabled');
-                    
+
                     this.getAnswersAllOptions().then(($elements) => {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -177,7 +177,7 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -197,7 +197,7 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -217,7 +217,7 @@ export class Onboarding {
                         count = $elements.length;
                         // Now you can use the 'count' variable
                         cy.log('Count of elements:', count);
-                        random = this.getRandomNumber(0, count-1)
+                        random = this.getRandomNumber(0, count - 1)
                         cy.log("Random Number: ", random)
                         this.getAnswersAllOptions().eq(random).click({ force: true })
                     })
@@ -234,5 +234,23 @@ export class Onboarding {
                 // Code to execute if none of the cases match expression
             }
         })
+    }
+    CompleteOnboarding(talent) {
+        this.getGetStartedButton()//check if button is clickable
+            .click({ force: true })
+        //talent has 9 questions
+        for (let questionNumber = 1; questionNumber < 10; questionNumber++) {
+            this.fillOnboardingDetails(questionNumber)
+        }
+        cy.log("ONBOARDING COMPLETED")
+        //expect the page to contain go to dashboard button
+        cy.get('.btn-primary').should('exist').click()
+            .then(() => {
+                cy.wait(3500)
+                cy.url().then((url1) => {
+                    expect(url1).to.include('dashboard')
+                })
+            })
+       // cookiesArray = getAllCookies()
     }
 }

@@ -3,7 +3,7 @@ import { Talent } from "./Talent"
 import { ForgetPassword } from "./ForgetPassword"
 export class LoginPage {
     constructor() {
-        const talent = new Talent()
+     //  this.talent = new Talent()
         this.forgetPassword = new ForgetPassword()
     }
     get ContinueWithGoogleButton() {
@@ -29,7 +29,7 @@ export class LoginPage {
     }
     LogIn(talent) {
         // cy.visit('https://app.staging.tribaja.co/')
-        cy.xpath('/html/body/div[1]/div/div/div[1]/a').as('LoginPageButton')
+        cy.get('button').contains('Login').as('LoginPageButton')
         cy.get('@LoginPageButton').click({ force: true })
         if (talent.emailAddress !== '') {
             this.EmailAddressTextBox.type(talent.emailAddress)

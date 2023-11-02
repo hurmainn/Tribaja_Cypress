@@ -50,6 +50,8 @@ describe('LOGIN AS TALENT', () => {
         cy.wait(1000)
         cy.url().then((url) => {
             if (url.includes('onboarding')) {
+                //   onboarding.CompleteOnboarding(talent)
+
                 onboarding.getGetStartedButton()//check if button is clickable
                     .click({ force: true })
                 //talent has 9 questions
@@ -65,7 +67,7 @@ describe('LOGIN AS TALENT', () => {
                             expect(url1).to.include('dashboard')
                         })
                     })
-                    cookiesArray = getAllCookies()
+                cookiesArray = getAllCookies()
             }
             else {
                 //Proceed for the dashboard flow here
@@ -81,12 +83,12 @@ describe('LOGIN AS TALENT', () => {
     })
     it("View Profile", () => {
         setAllCookies(cookiesArray)
-        cy.then(()=>{
+        cy.then(() => {
             cy.visit('https://app.staging.tribaja.co/')
         })
         profile.CheckUserDetailsInProfileView(talent)
         //dashboard.ViewProfile()
-        
+
         profile.VerifyPassionIndustry("Apps and Mobile")
         //profile.CheckTalentProfileUrl()
         //profile.TestProfileForElementsExistence()

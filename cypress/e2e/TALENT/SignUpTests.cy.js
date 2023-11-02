@@ -1,9 +1,14 @@
 import { SignUpPage } from "../../Classes/SignUpPage";
-
+import { VerifyOTP } from "../../Classes/VerifyOTP";
+import { Onboarding } from "../../Classes/OnboardingPages";
 describe("SIGN UP", () => {
     const signUpPage = new SignUpPage()
+    const verifyOTP = new VerifyOTP()
+    const onboarding=new Onboarding()
     let talentDataa;
     let talent;
+    let errorMessage;
+
     before(() => {
         cy.setTalentDataFromFixture();
         cy.getTalentData().then((talentData) => {
@@ -13,19 +18,37 @@ describe("SIGN UP", () => {
     beforeEach(() => {
         cy.viewport(2500, 1399)
         cy.visit('https://app.staging.tribaja.co/')
-        talent = talentDataa.talents[0];
+        talent = talentDataa.talents[5];
+        talent2=talentDataa.talents2[0];
     })
     context('POSIITVE SCENARIOS', () => {
-        it('ALL VALID INPUTS', () => {
-            cy.log(talent.emailAddress)
+        it('Successful Sign Up', () => {
+            signUpPage.SignUp(talent)
+            cy.wait(5000)
+            //OTP VERIFICATION
+            //it must include this because we are doing a successfull login
+            //all inputs shpuld be correct as the test expects
+            cy.url().then((url) => {
+                expect(url).to.include('/verify-otp')
+                cy.pause(2000)  //enter otp
+            })
+            verifyOTP.VerifyEmail(talent)
+            cy.wait(2500)
+            //LOGIN VERIFIEED USER
+            verifyOTP.LoginAfterVerification(talent)
+            //User is signing up correctly - (for the first time) - should proceed to onboarding 
+            //check onboarding url
+            cy.url().should('include', '/onboarding');   //verified sign up
+
+            //check if onboarding is false
+            cy.getCookie('boarding-completed').then((cookie) => { expect(cookie.value).to.equal('false') })
+
+            onboarding.CompleteOnboarding(talent)
+
+
         })
     })
     context('NEGATIVE SCENARIOS', () => {
-
-        it('Successful Sign-Up', () => {
-            // Test a successful sign-up with valid data in all fields
-        });
-
         it('Empty Fields', () => {
             // Test when all fields are left empty
         });
@@ -97,7 +120,9 @@ describe("SIGN UP", () => {
         it('Field Validations', () => {
             // Check if all fields provide appropriate error messages for invalid data
         });
+        it('passwords dont match', () => {
 
+        })
         // Additional test scenarios and optional tests can be added here.
     });
     context('EMAIL CONFIRMATION SCENARIO', () => {

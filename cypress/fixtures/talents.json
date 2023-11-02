@@ -34,6 +34,13 @@
             "emailAddress": "hurmain.javed+90@folium.ai",
             "role": "Talent",
             "password": "lilly1234"
+        },
+        {
+            "firstName": "Hurmain",
+            "lastName": "Javaid",
+            "emailAddress": "hurmain.javed+119@folium.ai",
+            "role": "Talent",
+            "password": "lilly1234"
         }
     ],
     "incorrectTalents": [
@@ -60,6 +67,14 @@
         {
             "emailAddress": "",
             "password": ""
+        }
+    ],
+    "talents2": [
+        {
+            "validEmail": "hurmain.javed+2001@folium.ai",
+            "invalidEmail": "invalid-email",
+            "existingEmail": "hurmain.javed@folium.ai",
+            "anotherUniqueEmail": "hurmain.javed+2023@folium.ai"
         }
     ]
 }

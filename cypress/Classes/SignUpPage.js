@@ -36,16 +36,24 @@ export class SignUpPage{
     }
     
     SignUp(talent){
-        this.FirstNameTextBox.type(talent.firstName)
-        this.LastNameTextBox.type(talent.lastName)
-        this.EmailAddressTextBox.type(talent.emailAddress)
-        
-        this.RoleDropdown.click()
-        cy.get('.rc-virtual-list-holder-inner').invoke("show")
-        cy.get(".ant-select-item-option-content").eq(0).click({force:true})
-
-        this.PasswordTextBox.type(talent.password)
-        this.RepeatPasswordTextBox.type(talent.password)
+        if(talent.firstName!==""){
+            this.FirstNameTextBox.type(talent.firstName)
+        }
+        if(talent.lastName!==""){
+            this.LastNameTextBox.type(talent.lastName)
+        }
+        if(talent.emailAddress!==""){
+            this.EmailAddressTextBox.type(talent.emailAddress)
+        }
+        if(talent.role!==""){
+            this.RoleDropdown.click()
+            cy.get('.rc-virtual-list-holder-inner').invoke("show")
+            cy.get(".ant-select-item-option-content").eq(0).click({force:true})
+        }
+        if(talent.password!==""){
+            this.PasswordTextBox.type(talent.password)
+            this.RepeatPasswordTextBox.type(talent.password)
+        }
         this.ContinueButton.click()
     }
 }
