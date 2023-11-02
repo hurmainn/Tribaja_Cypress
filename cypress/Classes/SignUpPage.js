@@ -5,47 +5,47 @@ export class SignUpPage{
     constructor(){
         const talent = new Talent()
     }
-    getContinueWithGoogleButton(){
+    get ContinueWithGoogleButton(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div[1]/button[1]")
     }
-    getContinueWithLinkedInButton(){
+    get ContinueWithLinkedInButton(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div[1]/button[2]")
     }
-    getFirstNameTextBox()
+    get FirstNameTextBox()
     {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/label[1]/input")
     }
-    getLastNameTextBox()
+    get LastNameTextBox()
     {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/label[2]/input")
     }
-    getEmailAddressTextBox(){
+    get EmailAddressTextBox(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/label[3]/input")
     }
-    getRoleDropdown(){
+    get RoleDropdown(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/label[4]/div/div/span[1]/input")
     }
-    getPasswordTextBox(){
+    get PasswordTextBox(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/label[5]/input")
     }
-    getRepeatPasswordTextBox(){
+    get RepeatPasswordTextBox(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/label[6]/input")
     }
-    getContinueButton(){
+    get ContinueButton(){
         return cy.xpath("/html/body/div[1]/div/div/div[2]/form/button")
     }
     
     SignUp(talent){
-        this.getFirstNameTextBox().type(talent.firstName)
-        this.getLastNameTextBox().type(talent.lastName)
-        this.getEmailAddressTextBox().type(talent.emailAddress)
+        this.FirstNameTextBox.type(talent.firstName)
+        this.LastNameTextBox.type(talent.lastName)
+        this.EmailAddressTextBox.type(talent.emailAddress)
         
-        this.getRoleDropdown().click()
+        this.RoleDropdown.click()
         cy.get('.rc-virtual-list-holder-inner').invoke("show")
         cy.get(".ant-select-item-option-content").eq(0).click({force:true})
 
-        this.getPasswordTextBox().type(talent.password)
-        this.getRepeatPasswordTextBox().type(talent.password)
-        this.getContinueButton().click()
+        this.PasswordTextBox.type(talent.password)
+        this.RepeatPasswordTextBox.type(talent.password)
+        this.ContinueButton.click()
     }
 }

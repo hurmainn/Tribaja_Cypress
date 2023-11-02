@@ -35,7 +35,6 @@
             "role": "Talent",
             "password": "lilly1234"
         }
-        
     ],
     "incorrectTalents": [
         {
@@ -59,8 +58,8 @@
             "password": ""
         },
         {
-            "emailAddress":"",
-            "password":""
+            "emailAddress": "",
+            "password": ""
         }
     ]
 }

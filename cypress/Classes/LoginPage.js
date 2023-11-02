@@ -57,7 +57,7 @@ export class LoginPage {
                     this.forgetPassword.ProceedForgetPassword(emailAddress)
                 })
         })
-
+        //error in forget password right now cant proceed from the website /backend error
 
     }
 }
