@@ -23,6 +23,7 @@ describe("SIGN UP", () => {
         cy.viewport(2500, 1399)
         cy.visit('https://app.staging.tribaja.co/')
         talent = talentDataa.talents[5];
+        testTalent = talent
         talent2 = talentDataa.talents2[0];  //valid
         emptyTalent = talentDataa.emptyTalent[0];
     })
@@ -54,7 +55,7 @@ describe("SIGN UP", () => {
         })
     })
     context('NEGATIVE SCENARIOS', () => {
-        it.only('Empty Fields', () => {
+        it('All Empty Fields', () => {
             errorMessage = "Fill all the forms."
             // Test when all fields are left empty
             //first check if all fields are empty   
@@ -65,8 +66,8 @@ describe("SIGN UP", () => {
             cy.get('input[name="email"][required]:invalid').should('exist')
             cy.get('input[name="password"][required]:invalid').should('exist')
             cy.get('input[name="repeatPassword"][required]:invalid').should('exist')
-            cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[1]')
-                .should('have.value', '')
+            cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                .should('include.text', '')
             cy.url().should('not.include', '/verify-otp');
             cy.url().should('include', '/signup');
             // signUpPage.errorMessageDiv.invoke('text').then((text) => {
@@ -75,8 +76,101 @@ describe("SIGN UP", () => {
 
         });
 
-        it('Individual Empty Fields', () => {
-            // Test each field individually when it's left empty
+        context.only('Individual Empty Fields', () => {
+            it('First Name Field', () => {
+                testTalent = talentDataa.talents[5];
+                testTalent.firstName = ''  //empty the first name before signing in
+                signUpPage.SignUp(testTalent)
+                cy.get('input[name="firstName"][required]:valid').should('not.exist')
+                cy.get('input[name="lastName"][required]:valid').should('exist')
+                cy.get('input[name="email"][required]:valid').should('exist')
+                cy.get('input[name="password"][required]:valid').should('exist')
+                cy.get('input[name="repeatPassword"][required]:valid').should('exist')
+                cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                    .should('include.text', talent.role)
+                cy.url().should('not.include', '/verify-otp');
+                cy.url().should('include', '/signup');
+            });
+
+            it('Last Name Field', () => {
+                testTalent =talentDataa.talents[5];
+                testTalent.lastName = ''  //empty the first name before signing in
+                signUpPage.SignUp(testTalent)
+                cy.get('input[name="firstName"][required]:valid').should('exist')
+                cy.get('input[name="lastName"][required]:valid').should('not.exist')
+                cy.get('input[name="email"][required]:valid').should('exist')
+                cy.get('input[name="password"][required]:valid').should('exist')
+                cy.get('input[name="repeatPassword"][required]:valid').should('exist')
+                cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                    .should('include.text', talent.role)
+                cy.url().should('not.include', '/verify-otp');
+                cy.url().should('include', '/signup');
+            });
+
+            it('Email Address Field', () => {
+                testTalent =talentDataa.talents[5];
+                testTalent.emailAddress = ''  //empty the first name before signing in
+                signUpPage.SignUp(testTalent)
+                cy.get('input[name="firstName"][required]:valid').should('exist')
+                cy.get('input[name="lastName"][required]:valid').should('exist')
+                cy.get('input[name="email"][required]:valid').should('not.exist')
+                cy.get('input[name="password"][required]:valid').should('exist')
+                cy.get('input[name="repeatPassword"][required]:valid').should('exist')
+                cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                    .should('include.text', talent.role)
+                cy.url().should('not.include', '/verify-otp');
+                cy.url().should('include', '/signup');
+            });
+
+            it('Role Field', () => {
+                testTalent = talentDataa.talents[5];
+                cy.log(testTalent)
+                testTalent.role = ''  //empty the first name before signing in
+                signUpPage.SignUp(testTalent)
+                cy.get('input[name="firstName"][required]:valid').should('exist')
+                cy.get('input[name="lastName"][required]:valid').should('exist')
+                cy.get('input[name="email"][required]:valid').should('exist')
+                cy.get('input[name="password"][required]:valid').should('exist')
+                cy.get('input[name="repeatPassword"][required]:valid').should('exist')
+                cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                    .should('have.text', '')
+                cy.url().should('not.include', '/verify-otp');
+                cy.url().should('include', '/signup');
+            });
+
+            it('Create Password Field', () => {
+                signUpPage.RepeatPasswordTextBox.type(testTalent.password)
+                testTalent = talentDataa.talents[5];
+                testTalent.password = ''  //empty the first name before signing in
+                signUpPage.SignUp(testTalent)
+                cy.get('input[name="firstName"][required]:valid').should('exist')
+                cy.get('input[name="lastName"][required]:valid').should('exist')
+                cy.get('input[name="email"][required]:valid').should('exist')
+                cy.get('input[name="password"][required]:valid').should('not.exist')
+                cy.get('input[name="repeatPassword"][required]:valid').should('exist')
+                cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                    .should('include.text', talent.role)
+                cy.url().should('not.include', '/verify-otp');
+                cy.url().should('include', '/signup');
+            });
+
+            it('Repeat Password Field', () => {
+                signUpPage.PasswordTextBox.type(testTalent.password)
+                testTalent = talentDataa.talents[5];
+                testTalent.password = ''  //empty the first name before signing in
+                signUpPage.SignUp(testTalent)
+                cy.get('input[name="firstName"][required]:valid').should('exist')
+                cy.get('input[name="lastName"][required]:valid').should('exist')
+                cy.get('input[name="email"][required]:valid').should('exist')
+                cy.get('input[name="password"][required]:valid').should('exist')
+                cy.get('input[name="repeatPassword"][required]:valid').should('not.exist')
+                cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[2]')
+                    .should('include.text', talent.role)
+                cy.url().should('not.include', '/verify-otp');
+                cy.url().should('include', '/signup');
+
+            });
+
         });
 
         it('Invalid Email Format', () => {

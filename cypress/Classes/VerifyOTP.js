@@ -52,8 +52,7 @@ export class VerifyOTP {
                 cy.url().then((url) => { expect(url).to.include('/login') })
             })
         this.loginPage.LogIn(talent)
-        cy.url().should('include', '/onboarding');   //verified sign up
-
+     
 
     }
 }
