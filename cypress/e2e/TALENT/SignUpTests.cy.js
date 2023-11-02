@@ -1,12 +1,16 @@
 import { SignUpPage } from "../../Classes/SignUpPage";
 import { VerifyOTP } from "../../Classes/VerifyOTP";
 import { Onboarding } from "../../Classes/OnboardingPages";
+
 describe("SIGN UP", () => {
     const signUpPage = new SignUpPage()
     const verifyOTP = new VerifyOTP()
-    const onboarding=new Onboarding()
+    const onboarding = new Onboarding()
     let talentDataa;
     let talent;
+    let talent2;
+    let testTalent;
+    let emptyTalent;
     let errorMessage;
 
     before(() => {
@@ -19,7 +23,8 @@ describe("SIGN UP", () => {
         cy.viewport(2500, 1399)
         cy.visit('https://app.staging.tribaja.co/')
         talent = talentDataa.talents[5];
-        talent2=talentDataa.talents2[0];
+        talent2 = talentDataa.talents2[0];  //valid
+        emptyTalent = talentDataa.emptyTalent[0];
     })
     context('POSIITVE SCENARIOS', () => {
         it('Successful Sign Up', () => {
@@ -49,8 +54,25 @@ describe("SIGN UP", () => {
         })
     })
     context('NEGATIVE SCENARIOS', () => {
-        it('Empty Fields', () => {
+        it.only('Empty Fields', () => {
+            errorMessage = "Fill all the forms."
             // Test when all fields are left empty
+            //first check if all fields are empty   
+            signUpPage.SignUp(emptyTalent)
+            cy.url()
+            cy.get('input[name="firstName"][required]:invalid').should('exist')
+            cy.get('input[name="lastName"][required]:valid').should('not.exist')
+            cy.get('input[name="email"][required]:invalid').should('exist')
+            cy.get('input[name="password"][required]:invalid').should('exist')
+            cy.get('input[name="repeatPassword"][required]:invalid').should('exist')
+            cy.xpath('//*[@id="root"]/div/div/div[2]/form/label[4]/div/div/span[1]')
+                .should('have.value', '')
+            cy.url().should('not.include', '/verify-otp');
+            cy.url().should('include', '/signup');
+            // signUpPage.errorMessageDiv.invoke('text').then((text) => {
+            //     expect(text).to.equal(errorMessage)
+            // })
+
         });
 
         it('Individual Empty Fields', () => {

@@ -76,5 +76,14 @@
             "existingEmail": "hurmain.javed@folium.ai",
             "anotherUniqueEmail": "hurmain.javed+2023@folium.ai"
         }
+    ],
+    "emptyTalent": [
+        {
+            "firstName": "",
+            "lastName": "",
+            "emailAddress": "",
+            "role": "",
+            "password": ""
+        }
     ]
 }
