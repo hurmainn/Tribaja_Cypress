@@ -3,7 +3,7 @@ import { Talent } from "./Talent"
 export class Dashboard {
 
     get DropDownElement() {
-        return cy.get('main > .profile__box-avatar').invoke('show')
+        return cy.get('main > .ant-avatar').invoke('show')
 
     }
     get ProfileContainer() {

@@ -34,14 +34,14 @@ describe('LOGIN AS TALENT', () => {
         cy.visit('https://app.staging.tribaja.co')
     })
     beforeEach(() => {
-
+        cy.viewport(2500, 1399)
     })
     it("Login", () => {
         cy.visit('https://app.staging.tribaja.co/')
         talent = talentDataa.talents[4]; //signing up user 1, if i will want all users to sign up , i will just use for loop
         loginPage.LogIn(talent)
         //cy.wait(5000)
-       cookiesArray= getAllCookies()
+        cookiesArray = getAllCookies()
     })
     it('Onboarding', () => {
         //SETTING COOKIES
@@ -65,6 +65,7 @@ describe('LOGIN AS TALENT', () => {
                             expect(url1).to.include('dashboard')
                         })
                     })
+                    cookiesArray = getAllCookies()
             }
             else {
                 //Proceed for the dashboard flow here
@@ -72,30 +73,30 @@ describe('LOGIN AS TALENT', () => {
             }
         })
     })
-    // it('Dashboard', () => {
-    //     // cy.visit('https://app.staging.tribaja.co/dashboard')
-    //     dashboard.CheckUserDetailsInDashboard(talent)
-    //     dashboard.ViewProfile(talent)
-    // })
-    // it("View Profile", () => {
-    //     cy.log(uniqueid)
-    //     cy.visit('https://app.staging.tribaja.co/profile/talent/')
-    //     //check if the user has logged in with the same details
-    //     //**DO LATER: check session storage here so that we know it's the same user
-    //     //check the details before editing - should be same with which the user logged in
-    //     dashboard.CheckUserDetailsInDashboard(talent)
-    //     profile.CheckUserDetailsInProfileView(talent)
-    //     dashboard.ViewProfile()
-    //     profile.VerifyPassionIndustry("Apps and Mobile")
-    //     //profile.CheckTalentProfileUrl()
-    //     //profile.TestProfileForElementsExistence()
-    //     //profile.TestButtonsEnability()
+    it('Dashboard', () => {
+        setAllCookies(cookiesArray)
+        cy.visit('https://app.staging.tribaja.co/')
+        dashboard.CheckUserDetailsInDashboard(talent)
+        dashboard.ViewProfile(talent)
+    })
+    it("View Profile", () => {
+        setAllCookies(cookiesArray)
+        cy.then(()=>{
+            cy.visit('https://app.staging.tribaja.co/')
+        })
+        profile.CheckUserDetailsInProfileView(talent)
+        //dashboard.ViewProfile()
+        
+        profile.VerifyPassionIndustry("Apps and Mobile")
+        //profile.CheckTalentProfileUrl()
+        //profile.TestProfileForElementsExistence()
+        //profile.TestButtonsEnability()
 
-    //     //1. single comprehensive end to end user scenario where user updates all information at once
-    //     //2. separate functions for each information update
-    //     const updateTalent = updateTalentDataa.updatetalents[0]
-    //     // profile.EditProfile(updateTalent)
-    // })
+        //1. single comprehensive end to end user scenario where user updates all information at once
+        //2. separate functions for each information update
+        const updateTalent = updateTalentDataa.updatetalents[0]
+        // profile.EditProfile(updateTalent)
+    })
     // it("Edit Profile", () => {
 
     // })
