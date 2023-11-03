@@ -57,6 +57,10 @@ describe("SIGN UP", () => {
         })
     })
     context('NEGATIVE SCENARIOS', () => {
+        afterEach(() => {
+            cy.url().should('not.include', '/verify-otp')
+            cy.url().should('include', '/signup')
+        })
         it('All Empty Fields', () => {
             errorMessage = "Fill all the forms."
             // Test when all fields are left empty
@@ -252,10 +256,14 @@ describe("SIGN UP", () => {
         beforeEach(() => {
             testTalent = _.cloneDeep(talent);
         })
+        afterEach(() => {
+            cy.url().should('not.include', '/verify-otp')
+            cy.url().should('include', '/signup')
+        })
         // short password
         it('Short Password', () => {
             errorMessage = "This password is too short. It must contain at least 8 characters."
-           testTalent.emailAddress='hurmain.javed+0981@folium.ai'
+            testTalent.emailAddress = 'hurmain.javed+0981@folium.ai'
             testTalent.password = 'lily'
             signUpPage.SignUp(testTalent)
             cy.contains(errorMessage).should('be.visible');
@@ -263,17 +271,27 @@ describe("SIGN UP", () => {
         //password matches email 
         it('Password matches email', () => {
             errorMessage = "The password is too similar"
-            testTalent.emailAddress='hurmain.javed+0982@folium.ai'
+            testTalent.emailAddress = 'hurmain.javed+0982@folium.ai'
             testTalent.password = 'hurmainjaved'
             signUpPage.SignUp(testTalent)
+            cy.url().should('not.include', '/verify-otp')
+            cy.url().should('include', '/signup')
             cy.contains(errorMessage).should('be.visible');
+
         })
         //long password / don't allow
+        it('Long Password', () => {
+            cy.log('to define yet')
+        })
+        it.only('Password Confirmation Mismatch', () => {
+            errorMessage = "Both passwords don't match"
+            testTalent = _.cloneDeep(talent);
+            signUpPage.SignUp(testTalent)
+            cy.contains(errorMessage).should('be.visible');
+        });
     });
 
-    it('Password Confirmation Mismatch', () => {
-        // Test when "Create Password" and "Repeat Password" do not match
-    });
+
 
     it('Existing Email', () => {
         // Check what happens when an existing email address is used for sign-up

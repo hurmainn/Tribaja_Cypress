@@ -52,23 +52,29 @@ export class SignUpPage {
     }
     SignUp(talent) {
         if (talent.firstName !== "") {
-            this.FirstNameTextBox.clear().type(talent.firstName)
+            checkExistenceandVisibility(this.FirstNameTextBox)
+            this.FirstNameTextBox.clear().type(talent.firstName, { force: true })
         }
         if (talent.lastName !== "") {
-            this.LastNameTextBox.clear().type(talent.lastName)
+            checkExistenceandVisibility(this.LastNameTextBox)
+            this.LastNameTextBox.clear().type(talent.lastName, { force: true })
         }
         if (talent.emailAddress !== "") {
-            this.EmailAddressTextBox.clear().type(talent.emailAddress)
+            checkExistenceandVisibility(this.EmailAddressTextBox)
+            this.EmailAddressTextBox.clear().type(talent.emailAddress, { force: true })
         }
         if (talent.role !== "") {
-            this.RoleDropdown.click({force:true})
+           // checkExistenceandVisibility(this.RoleDropdown)
+            this.RoleDropdown.click({ force: true })
             cy.get('.rc-virtual-list-holder-inner').invoke("show")
             cy.get(".ant-select-item-option-content").eq(0).click({ force: true })
         }
         if (talent.password !== "") {
-            this.PasswordTextBox.clear().type(talent.password)
-            this.RepeatPasswordTextBox.clear().type(talent.password)
+            checkExistenceandVisibility(this.PasswordTextBox)
+            checkExistenceandVisibility(this.RepeatPasswordTextBox)
+            this.PasswordTextBox.clear().type(talent.password, { force: true })
+            this.RepeatPasswordTextBox.clear().type(talent.password,{force:true})
         }
-        this.ContinueButton.click({force:true})
+        this.ContinueButton.click({ force: true })
     }
 }
