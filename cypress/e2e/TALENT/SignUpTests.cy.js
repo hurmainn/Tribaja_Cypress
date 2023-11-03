@@ -283,6 +283,9 @@ describe("SIGN UP", () => {
         it('Long Password', () => {
             cy.log('to define yet')
         })
+        it('Password Strength Indicator', () => {
+            // Verify that the application provides feedback on password strength
+        });
         it('Password Confirmation Mismatch', () => {
             errorMessage = "Both passwords don't match"
             testTalent = _.cloneDeep(talent);
@@ -328,17 +331,13 @@ describe("SIGN UP", () => {
         // Ensure that a default role is selected if none is chosen
     });
 
-    it('Password Strength Indicator', () => {
-        // Verify that the application provides feedback on password strength
-    });
+
 
     it('Field Validations', () => {
         // Check if all fields provide appropriate error messages for invalid data
     });
-    // Additional test scenarios and optional tests can be added here.
-    context('EMAIL CONFIRMATION SCENARIO', () => {
 
-    });
+
 });
 
 
