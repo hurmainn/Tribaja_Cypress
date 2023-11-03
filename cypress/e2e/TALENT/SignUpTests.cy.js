@@ -283,43 +283,34 @@ describe("SIGN UP", () => {
         it('Long Password', () => {
             cy.log('to define yet')
         })
-        it.only('Password Confirmation Mismatch', () => {
+        it('Password Confirmation Mismatch', () => {
             errorMessage = "Both passwords don't match"
             testTalent = _.cloneDeep(talent);
             signUpPage.SignUp(testTalent)
             cy.contains(errorMessage).should('be.visible');
         });
+        it('Password Confirmation', () => {
+            let password1 = talent.password;
+            signUpPage.PasswordTextBox.clear().type(talent.password, { force: true })
+            signUpPage.RepeatPasswordTextBox.clear().type(talent.password, { force: true })
+
+            signUpPage.PasswordTextBox.should('have.value', password1)
+            signUpPage.RepeatPasswordTextBox.should('have.value', password1)
+
+        });
+    });
+
+    it.only('Existing Email', () => {
+        errorMessage = "A user is already registered with this e-mail address."
+        testTalent = _.cloneDeep(talent)
+        testTalent.emailAddress = talent2.existingEmailAddress
+        signUpPage.SignUp(testTalent)
+        cy.contains(errorMessage).should('be.visible');
+        cy.url().should('not.include', '/verify-otp')
+        cy.url().should('include', '/signup')
     });
 
 
-
-    it('Existing Email', () => {
-        // Check what happens when an existing email address is used for sign-up
-    });
-
-    it('Valid Email', () => {
-        // Test for a valid email format
-    });
-
-    it('Invalid Email', () => {
-        // Test for an invalid email format
-    });
-
-    it('Email Validation', () => {
-        // Test if the email field is correctly validated
-    });
-
-    it('Valid Password', () => {
-        // Test for a valid password
-    });
-
-    it('Invalid Password', () => {
-        // Test for an invalid password format
-    });
-
-    it('Password Confirmation', () => {
-        // Verify that "Create Password" and "Repeat Password" match
-    });
 
     it('Valid Names', () => {
         // Test with valid first and last names
