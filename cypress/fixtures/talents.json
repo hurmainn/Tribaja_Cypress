@@ -71,10 +71,42 @@
     ],
     "talents2": [
         {
-            "validEmail": "hurmain.javed+2001@folium.ai",
-            "invalidEmail": "invalid-email",
-            "existingEmail": "hurmain.javed@folium.ai",
-            "anotherUniqueEmail": "hurmain.javed+2023@folium.ai"
+            "validEmailAddress": "hurmain.javed+2001@folium.ai",
+            "invalidEmailAddress": "invalid-email",
+            "existingEmailAddress": "hurmain.javed@folium.ai",
+            "anotherUniqueEmailAddress": "hurmain.javed+2023@folium.ai"
+        }
+    ],
+    "invalidEmailAddresses": [
+        {
+            "emailAddress": "hurmain.javedfolium.ai"
+        },
+        {
+            "emailAddress": "hurmain.javed@folium"
+        },
+        {
+            "emailAddress": "hurmain.javed"
+        },
+        {
+            "emailAddress": "hurmain.javed@"
+        },
+        {
+            "emailAddress": "hurmain.javed@@folium.ai"
+        },
+        {
+            "emailAddress": "hurmain.javed@folium#ai"
+        },
+        {
+            "emailAddress": "hurmain.javed@@@folium.ai"
+        },
+        {
+            "emailAddress": "@folium.ai"
+        },
+        {
+            "emailAddress": "hurmain.javed@fo$lium.ai"
+        },
+        {
+            "emailAddress": "hurmain@javed@folium.ai"
         }
     ],
     "emptyTalent": [

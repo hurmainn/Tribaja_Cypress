@@ -1,7 +1,7 @@
 import { SignUpPage } from "../../Classes/SignUpPage";
 import { VerifyOTP } from "../../Classes/VerifyOTP";
 import { Onboarding } from "../../Classes/OnboardingPages";
-import _ from 'lodash';
+import _, { forEach } from 'lodash';
 describe("SIGN UP", () => {
     const signUpPage = new SignUpPage()
     const verifyOTP = new VerifyOTP()
@@ -12,7 +12,7 @@ describe("SIGN UP", () => {
     let testTalent;
     let emptyTalent;
     let errorMessage;
-
+    let invalidEmailAddresses_ = []
     before(() => {
         cy.setTalentDataFromFixture();
         cy.getTalentData().then((talentData) => {
@@ -22,6 +22,8 @@ describe("SIGN UP", () => {
     beforeEach(() => {
         cy.viewport(2500, 1399)
         cy.visit('https://app.staging.tribaja.co/')
+        signUpPage.checkExistenceandVisibilityOfElements()
+        invalidEmailAddresses_ = talentDataa.invalidEmailAddresses
         talent = talentDataa.talents[5];
         testTalent = talent
         talent2 = talentDataa.talents2[0];  //valid
@@ -76,9 +78,13 @@ describe("SIGN UP", () => {
 
         });
 
-        context.only('Individual Empty Fields', () => {
+        context('Individual Empty Fields', () => {
+
+            beforeEach(() => {
+                testTalent = _.cloneDeep(talent);
+            })
             it('First Name Field', () => {
-                 testTalent = _.cloneDeep(talent);
+                //testTalent = _.cloneDeep(talent);
                 // testTalent = talentDataa.talents[5];
                 testTalent.firstName = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
@@ -94,7 +100,7 @@ describe("SIGN UP", () => {
             });
 
             it('Last Name Field', () => {
-                testTalent = _.cloneDeep(talent);
+                // testTalent = _.cloneDeep(talent);
                 testTalent.lastName = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -109,7 +115,7 @@ describe("SIGN UP", () => {
             });
 
             it('Email Address Field', () => {
-                testTalent = _.cloneDeep(talent);
+                // testTalent = _.cloneDeep(talent);
                 testTalent.emailAddress = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -124,7 +130,7 @@ describe("SIGN UP", () => {
             });
 
             it('Role Field', () => {
-                testTalent = _.cloneDeep(talent);
+                // testTalent = _.cloneDeep(talent);
                 cy.log(testTalent)
                 testTalent.role = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
@@ -141,7 +147,7 @@ describe("SIGN UP", () => {
 
             it('Create Password Field', () => {
                 signUpPage.RepeatPasswordTextBox.type(testTalent.password)
-                testTalent = _.cloneDeep(talent);
+                // testTalent = _.cloneDeep(talent);
                 testTalent.password = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -157,7 +163,7 @@ describe("SIGN UP", () => {
 
             it('Repeat Password Field', () => {
                 signUpPage.PasswordTextBox.type(testTalent.password)
-                testTalent = _.cloneDeep(talent);
+                // testTalent = _.cloneDeep(talent);
                 testTalent.password = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -174,75 +180,254 @@ describe("SIGN UP", () => {
 
         });
 
-        it('Invalid Email Format', () => {
-            // Test when an invalid email format is entered
-        });
-
-        it('Password Requirements', () => {
-            // Verify that the application enforces password requirements
-        });
-
-        it('Password Confirmation Mismatch', () => {
-            // Test when "Create Password" and "Repeat Password" do not match
-        });
-
-        it('Existing Email', () => {
-            // Check what happens when an existing email address is used for sign-up
-        });
-
-        it('Valid Email', () => {
-            // Test for a valid email format
-        });
-
-        it('Invalid Email', () => {
-            // Test for an invalid email format
-        });
-
-        it('Email Validation', () => {
-            // Test if the email field is correctly validated
-        });
-
-        it('Valid Password', () => {
-            // Test for a valid password
-        });
-
-        it('Invalid Password', () => {
-            // Test for an invalid password format
-        });
-
-        it('Password Confirmation', () => {
-            // Verify that "Create Password" and "Repeat Password" match
-        });
-
-        it('Valid Names', () => {
-            // Test with valid first and last names
-        });
-
-        it('Invalid Names', () => {
-            // Test with invalid characters in the name fields
-        });
-
-        it('Select Role', () => {
-            // Test the role selection from available options
-        });
-
-        it('Default Role', () => {
-            // Ensure that a default role is selected if none is chosen
-        });
-
-        it('Password Strength Indicator', () => {
-            // Verify that the application provides feedback on password strength
-        });
-
-        it('Field Validations', () => {
-            // Check if all fields provide appropriate error messages for invalid data
-        });
-        it('passwords dont match', () => {
-
+        context.skip('Invalid Email Formats', () => {
+            // it("test", () => {
+            //     cy.log(invalidEmailAddresses_)
+            //     console.log(invalidEmailAddresses_)
+            //     cy.log(invalidEmailAddresses_[0].emailAddress)
+            // })
+            // it("test", () => {
+            //     cy.log(invalidEmailAddresses_)
+            //     cy.log(invalidEmailAddresses_[1].emailAddress)
+            // })
+            const errorMessage = "Enter a valid email address";
+            //  const invalidEmailAddress = invalidEmailAddresses_[i].emailAddress;
+            it('Invalid Email Formats', () => {
+                invalidEmailAddresses_.forEach(($invalidEmailAddress) => {
+                    cy.log("*** NEXT TEST ***")
+                    const testTalent = _.cloneDeep(talent);
+                    testTalent.emailAddress = $invalidEmailAddress.emailAddress;
+                    cy.log(testTalent)
+                    signUpPage.SignUp(testTalent);
+                    cy.url().should('not.include', '/verify-otp')
+                    cy.url().should('include', '/signup')
+                    //If it is not considered invalid by html default validation then error message must appear
+                    if (talent.emailAddress === '/@/g') {
+                        cy.get('input[name="email"][required]:invalid').should('not.be.visible')
+                        cy.contains(errorMessage).should('be.visible');
+                    }
+                    else {
+                        cy.get('input[name="email"][required]:invalid').should('be.visible')
+                    }
+                    // Now, you can assert that the error message is displayed
+                    // cy.contains(errorMessage).should('be.visible');
+                })
+            });
         })
-        // Additional test scenarios and optional tests can be added here.
     });
+
+
+    // it("Invalid Email Format 2", () => {
+    //     testTalent = _.cloneDeep(talent);
+    //     cy.log("before invalid: ", testTalent.emailAddress)
+    //     testTalent.emailAddress = talent2.invalidEmailAddress2;
+    //     cy.log(testTalent.emailAddress)
+    //     signUpPage.SignUp(testTalent)
+    // })
+    // it("Invalid Email Format 3", () => {
+    //     testTalent = _.cloneDeep(talent);
+    //     cy.log("before invalid: ", testTalent.emailAddress)
+    //     testTalent.emailAddress = talent2.invalidEmailAddress3;
+    //     cy.log(testTalent.emailAddress)
+    //     signUpPage.SignUp(testTalent)
+    // })
+    // it("Invalid Email Format 4", () => {
+    //     testTalent = _.cloneDeep(talent);
+    //     cy.log("before invalid: ", testTalent.emailAddress)
+    //     testTalent.emailAddress = talent2.invalidEmailAddress4;
+    //     cy.log(testTalent.emailAddress)
+    //     signUpPage.SignUp(testTalent)
+    // })
+    // it("Invalid Email Format 5", () => {
+    //     testTalent = _.cloneDeep(talent);
+    //     cy.log("before invalid: ", testTalent.emailAddress)
+    //     testTalent.emailAddress = talent2.invalidEmailAddress5;
+    //     cy.log(testTalent.emailAddress)
+    //     signUpPage.SignUp(testTalent)
+    // })
+
+
+    context.only('Password Requirements', () => {
+
+        beforeEach(() => {
+            testTalent = _.cloneDeep(talent);
+        })
+        // short password
+        it('Short Password', () => {
+            errorMessage = "This password is too short. It must contain at least 8 characters."
+           testTalent.emailAddress='hurmain.javed+0981@folium.ai'
+            testTalent.password = 'lily'
+            signUpPage.SignUp(testTalent)
+            cy.contains(errorMessage).should('be.visible');
+        })
+        //password matches email 
+        it('Password matches email', () => {
+            errorMessage = "The password is too similar"
+            testTalent.emailAddress='hurmain.javed+0982@folium.ai'
+            testTalent.password = 'hurmainjaved'
+            signUpPage.SignUp(testTalent)
+            cy.contains(errorMessage).should('be.visible');
+        })
+        //long password / don't allow
+    });
+
+    it('Password Confirmation Mismatch', () => {
+        // Test when "Create Password" and "Repeat Password" do not match
+    });
+
+    it('Existing Email', () => {
+        // Check what happens when an existing email address is used for sign-up
+    });
+
+    it('Valid Email', () => {
+        // Test for a valid email format
+    });
+
+    it('Invalid Email', () => {
+        // Test for an invalid email format
+    });
+
+    it('Email Validation', () => {
+        // Test if the email field is correctly validated
+    });
+
+    it('Valid Password', () => {
+        // Test for a valid password
+    });
+
+    it('Invalid Password', () => {
+        // Test for an invalid password format
+    });
+
+    it('Password Confirmation', () => {
+        // Verify that "Create Password" and "Repeat Password" match
+    });
+
+    it('Valid Names', () => {
+        // Test with valid first and last names
+    });
+
+    it('Invalid Names', () => {
+        // Test with invalid characters in the name fields
+    });
+
+    it('Select Role', () => {
+        // Test the role selection from available options
+    });
+
+    it('Default Role', () => {
+        // Ensure that a default role is selected if none is chosen
+    });
+
+    it('Password Strength Indicator', () => {
+        // Verify that the application provides feedback on password strength
+    });
+
+    it('Field Validations', () => {
+        // Check if all fields provide appropriate error messages for invalid data
+    });
+    // Additional test scenarios and optional tests can be added here.
     context('EMAIL CONFIRMATION SCENARIO', () => {
 
     });
-})
+});
+
+
+
+// context('Character Limit Tests', () => {
+//     it('Maximum Character Limit for First Name', () => {
+//         const maxCharFirstName = 'A'.repeat(50); // Assuming the max character limit is 50
+//         testTalent.firstName = maxCharFirstName;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Maximum Character Limit for Last Name', () => {
+//         const maxCharLastName = 'B'.repeat(50); // Assuming the max character limit is 50
+//         testTalent.lastName = maxCharLastName;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Maximum Character Limit for Email Address', () => {
+//         const maxCharEmail = 'c'.repeat(100); // Assuming the max character limit is 100
+//         testTalent.emailAddress = maxCharEmail;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Maximum Character Limit for Password', () => {
+//         const maxCharPassword = 'D'.repeat(64); // Assuming the max character limit is 64
+//         testTalent.password = maxCharPassword;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Minimum Character Limit for First Name', () => {
+//         const minCharFirstName = 'E'; // Assuming the min character limit is 1
+//         testTalent.firstName = minCharFirstName;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input meets the minimum character limit
+//         // Add assertions as needed
+//     });
+
+//     it('Minimum Character Limit for Last Name', () => {
+//         const minCharLastName = 'F'; // Assuming the min character limit is 1
+//         testTalent.lastName = minCharLastName;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input meets the minimum character limit
+//         // Add assertions as needed
+//     });
+
+//     it('Minimum Character Limit for Email Address', () => {
+//         const minCharEmail = 'G'; // Assuming the min character limit is 1
+//         testTalent.emailAddress = minCharEmail;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input meets the minimum character limit
+//         // Add assertions as needed
+//     });
+
+//     it('Minimum Character Limit for Password', () => {
+//         const minCharPassword = 'H'; // Assuming the min character limit is 1
+//         testTalent.password = minCharPassword;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input meets the minimum character limit
+//         // Add assertions as needed
+//     });
+
+//     it('Valid Character Input for First Name', () => {
+//         const validFirstName = 'John';
+//         testTalent.firstName = validFirstName;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Valid Character Input for Last Name', () => {
+//         const validLastName = 'Doe';
+//         testTalent.lastName = validLastName;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Valid Character Input for Email Address', () => {
+//         const validEmail = 'john.doe@example.com';
+//         testTalent.emailAddress = validEmail;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+
+//     it('Valid Character Input for Password', () => {
+//         const validPassword = 'StrongPassword123';
+//         testTalent.password = validPassword;
+//         signUpPage.SignUp(testTalent);
+//         // Ensure the input is accepted
+//         // Add assertions as needed
+//     });
+// });

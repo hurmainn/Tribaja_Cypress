@@ -1,9 +1,12 @@
 import { Talent } from "./Talent";
 import 'cypress-xpath';
-
+import { checkExistenceandVisibility } from "../utils/checkExistenceandVisibility";
 export class SignUpPage {
     constructor() {
         const talent = new Talent()
+    }
+    get LoginButton() {
+        return cy.get('.navbar .link-button')
     }
     get ContinueWithGoogleButton() {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div[1]/button[1]")
@@ -35,25 +38,37 @@ export class SignUpPage {
     get errorMessageDiv() {
         return cy.get('.errorMessage')
     }
+    checkExistenceandVisibilityOfElements() {
+        checkExistenceandVisibility(this.FirstNameTextBox)
+        checkExistenceandVisibility(this.LastNameTextBox)
+        checkExistenceandVisibility(this.EmailAddressTextBox)
+        //checkExistenceandVisibility(this.RoleDropdown)
+        checkExistenceandVisibility(this.PasswordTextBox)
+        checkExistenceandVisibility(this.RepeatPasswordTextBox)
+        checkExistenceandVisibility(this.ContinueButton)
+        checkExistenceandVisibility(this.ContinueWithGoogleButton)
+        checkExistenceandVisibility(this.ContinueWithLinkedInButton)
+        checkExistenceandVisibility(this.LoginButton)
+    }
     SignUp(talent) {
         if (talent.firstName !== "") {
-            this.FirstNameTextBox.type(talent.firstName)
+            this.FirstNameTextBox.clear().type(talent.firstName)
         }
         if (talent.lastName !== "") {
-            this.LastNameTextBox.type(talent.lastName)
+            this.LastNameTextBox.clear().type(talent.lastName)
         }
         if (talent.emailAddress !== "") {
-            this.EmailAddressTextBox.type(talent.emailAddress)
+            this.EmailAddressTextBox.clear().type(talent.emailAddress)
         }
         if (talent.role !== "") {
-            this.RoleDropdown.click()
+            this.RoleDropdown.click({force:true})
             cy.get('.rc-virtual-list-holder-inner').invoke("show")
             cy.get(".ant-select-item-option-content").eq(0).click({ force: true })
         }
         if (talent.password !== "") {
-            this.PasswordTextBox.type(talent.password)
-            this.RepeatPasswordTextBox.type(talent.password)
+            this.PasswordTextBox.clear().type(talent.password)
+            this.RepeatPasswordTextBox.clear().type(talent.password)
         }
-        this.ContinueButton.click()
+        this.ContinueButton.click({force:true})
     }
 }
