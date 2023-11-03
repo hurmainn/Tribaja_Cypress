@@ -1,7 +1,7 @@
 import { SignUpPage } from "../../Classes/SignUpPage";
 import { VerifyOTP } from "../../Classes/VerifyOTP";
 import { Onboarding } from "../../Classes/OnboardingPages";
-
+import _ from 'lodash';
 describe("SIGN UP", () => {
     const signUpPage = new SignUpPage()
     const verifyOTP = new VerifyOTP()
@@ -78,7 +78,8 @@ describe("SIGN UP", () => {
 
         context.only('Individual Empty Fields', () => {
             it('First Name Field', () => {
-                testTalent = talentDataa.talents[5];
+                 testTalent = _.cloneDeep(talent);
+                // testTalent = talentDataa.talents[5];
                 testTalent.firstName = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('not.exist')
@@ -93,7 +94,7 @@ describe("SIGN UP", () => {
             });
 
             it('Last Name Field', () => {
-                testTalent =talentDataa.talents[5];
+                testTalent = _.cloneDeep(talent);
                 testTalent.lastName = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -108,7 +109,7 @@ describe("SIGN UP", () => {
             });
 
             it('Email Address Field', () => {
-                testTalent =talentDataa.talents[5];
+                testTalent = _.cloneDeep(talent);
                 testTalent.emailAddress = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -123,7 +124,7 @@ describe("SIGN UP", () => {
             });
 
             it('Role Field', () => {
-                testTalent = talentDataa.talents[5];
+                testTalent = _.cloneDeep(talent);
                 cy.log(testTalent)
                 testTalent.role = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
@@ -140,7 +141,7 @@ describe("SIGN UP", () => {
 
             it('Create Password Field', () => {
                 signUpPage.RepeatPasswordTextBox.type(testTalent.password)
-                testTalent = talentDataa.talents[5];
+                testTalent = _.cloneDeep(talent);
                 testTalent.password = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')
@@ -156,7 +157,7 @@ describe("SIGN UP", () => {
 
             it('Repeat Password Field', () => {
                 signUpPage.PasswordTextBox.type(testTalent.password)
-                testTalent = talentDataa.talents[5];
+                testTalent = _.cloneDeep(talent);
                 testTalent.password = ''  //empty the first name before signing in
                 signUpPage.SignUp(testTalent)
                 cy.get('input[name="firstName"][required]:valid').should('exist')

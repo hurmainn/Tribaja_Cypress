@@ -2,5 +2,8 @@
   "devDependencies": {
     "cypress": "^13.3.2",
     "cypress-xpath": "^2.0.1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
   }
 }
