@@ -38,6 +38,30 @@ export class SignUpPage {
     get errorMessageDiv() {
         return cy.get('.errorMessage')
     }
+
+    signInViaGoogle(talent) {
+        this.ContinueWithGoogleButton.click({ force: true })
+        cy.wait(4500)
+        cy.window().then((newWin) => {
+            // You now have access to the new window
+            cy.wrap(newWin).within(() => {
+                // Perform actions in the new window
+                cy.xpath('//*[@id="view_container"]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div/div/ul/li[3]/div').click({ force: true })
+
+            });
+        });
+
+        // Switch back to the original window (the parent window)
+        cy.window().then((parentWin) => {
+            // Perform assertions or interactions in the parent window
+            cy.wrap(parentWin).contains('Continue with your application').should('be.visible');
+        });
+
+    }
+
+    signInViaLinkedIn() {
+        this.ContinueWithLinkedInButton.click({ force: true })
+    }
     checkExistenceandVisibilityOfElements() {
         checkExistenceandVisibility(this.FirstNameTextBox)
         checkExistenceandVisibility(this.LastNameTextBox)
@@ -64,7 +88,7 @@ export class SignUpPage {
             this.EmailAddressTextBox.clear().type(talent.emailAddress, { force: true })
         }
         if (talent.role !== "") {
-           // checkExistenceandVisibility(this.RoleDropdown)
+            // checkExistenceandVisibility(this.RoleDropdown)
             this.RoleDropdown.click({ force: true })
             cy.get('.rc-virtual-list-holder-inner').invoke("show")
             cy.get(".ant-select-item-option-content").eq(0).click({ force: true })
@@ -73,7 +97,7 @@ export class SignUpPage {
             checkExistenceandVisibility(this.PasswordTextBox)
             checkExistenceandVisibility(this.RepeatPasswordTextBox)
             this.PasswordTextBox.clear().type(talent.password, { force: true })
-            this.RepeatPasswordTextBox.clear().type(talent.password,{force:true})
+            this.RepeatPasswordTextBox.clear().type(talent.password, { force: true })
         }
         this.ContinueButton.click({ force: true })
     }

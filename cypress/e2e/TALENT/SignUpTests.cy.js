@@ -29,6 +29,14 @@ describe("SIGN UP", () => {
         talent2 = talentDataa.talents2[0];  //valid
         emptyTalent = talentDataa.emptyTalent[0];
     })
+    context.only("Social Sign In", () => {
+        it.only("Sign IN Via Google", () => {
+            signUpPage.signInViaGoogle(talent)
+        })
+        it("Sign IN Via LinkedIn", () => {
+
+        })
+    })
     context('POSIITVE SCENARIOS', () => {
         it('Successful Sign Up', () => {
             signUpPage.SignUp(talent)
@@ -251,7 +259,7 @@ describe("SIGN UP", () => {
     // })
 
 
-    context.only('Password Requirements', () => {
+    context('Password Requirements', () => {
 
         beforeEach(() => {
             testTalent = _.cloneDeep(talent);
@@ -303,7 +311,7 @@ describe("SIGN UP", () => {
         });
     });
 
-    it.only('Existing Email', () => {
+    it('Existing Email', () => {
         errorMessage = "A user is already registered with this e-mail address."
         testTalent = _.cloneDeep(talent)
         testTalent.emailAddress = talent2.existingEmailAddress
@@ -312,26 +320,6 @@ describe("SIGN UP", () => {
         cy.url().should('not.include', '/verify-otp')
         cy.url().should('include', '/signup')
     });
-
-
-
-    it('Valid Names', () => {
-        // Test with valid first and last names
-    });
-
-    it('Invalid Names', () => {
-        // Test with invalid characters in the name fields
-    });
-
-    it('Select Role', () => {
-        // Test the role selection from available options
-    });
-
-    it('Default Role', () => {
-        // Ensure that a default role is selected if none is chosen
-    });
-
-
 
     it('Field Validations', () => {
         // Check if all fields provide appropriate error messages for invalid data
