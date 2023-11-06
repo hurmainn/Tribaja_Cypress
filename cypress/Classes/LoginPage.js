@@ -3,8 +3,8 @@ import { Talent } from "./Talent"
 import { ForgetPassword } from "./ForgetPassword"
 export class LoginPage {
     constructor() {
-     //  this.talent = new Talent()
-        this.forgetPassword = new ForgetPassword()
+        //  this.talent = new Talent()
+        // this.forgetPassword = new ForgetPassword()
     }
     get ContinueWithGoogleButton() {
         return cy.xpath("/html/body/div[1]/div/div/div[2]/div[1]/button[1]")
@@ -45,19 +45,5 @@ export class LoginPage {
             expect(errmsg).to.equal(errorMessage)
         })
     }
-    ForgetPassword(emailAddress) {
-        this.ForgetPasswordDiv.click({ force: true }).then(() => {
-            cy.url()
-                .then((url) => {
-                    expect(url).to.include('tribaja.co/reset-password')
-                    const text = "Reset Your Password and Regain Access to Your Tribaja Account. We will send you a confirmation email"
-                    cy.contains(text)
-                        .should('exist')
-                        .and('be.visible')
-                    this.forgetPassword.ProceedForgetPassword(emailAddress)
-                })
-        })
-        //error in forget password right now cant proceed from the website /backend error
 
-    }
 }

@@ -1,10 +1,11 @@
 import { Talent } from "../../Classes/Talent";
 import { LoginPage } from "../../Classes/LoginPage";
 import { SignUpPage } from "../../Classes/SignUpPage";
-
+import { ForgetPassword } from "../../Classes/ForgetPassword";
 describe("LOGIN", () => {
     const loginPage = new LoginPage()
     const signUpPage = new SignUpPage()
+    const forgetPassword=new ForgetPassword()
     let talentDataa;
     let talent;
     let errorMessage;
@@ -97,7 +98,9 @@ describe("LOGIN", () => {
             talent = talentDataa.talents[0];
             cy.xpath('/html/body/div[1]/div/div/div[1]/a').as('LoginPageButton')
             cy.get('@LoginPageButton').click({ force: true })
-            loginPage.ForgetPassword(talent.emailAddress)
+            forgetPassword.ForgetPassword("lilly12345",talent)
+            //forgetPassword.OTPVerification()
+
         })
     })
 })

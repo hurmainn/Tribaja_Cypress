@@ -29,8 +29,8 @@ describe("SIGN UP", () => {
         talent2 = talentDataa.talents2[0];  //valid
         emptyTalent = talentDataa.emptyTalent[0];
     })
-    context.only("Social Sign In", () => {
-        it.only("Sign IN Via Google", () => {
+    context("Social Sign In", () => {
+        it("Sign IN Via Google", () => {
             signUpPage.signInViaGoogle(talent)
         })
         it("Sign IN Via LinkedIn", () => {
@@ -192,7 +192,7 @@ describe("SIGN UP", () => {
 
         });
 
-        context.skip('Invalid Email Formats', () => {
+        context('Invalid Email Formats', () => {
             // it("test", () => {
             //     cy.log(invalidEmailAddresses_)
             //     console.log(invalidEmailAddresses_)
@@ -204,7 +204,7 @@ describe("SIGN UP", () => {
             // })
             const errorMessage = "Enter a valid email address";
             //  const invalidEmailAddress = invalidEmailAddresses_[i].emailAddress;
-            it('Invalid Email Formats', () => {
+            it.only('Invalid Email Formats', () => {
                 invalidEmailAddresses_.forEach(($invalidEmailAddress) => {
                     cy.log("*** NEXT TEST ***")
                     const testTalent = _.cloneDeep(talent);
@@ -304,7 +304,6 @@ describe("SIGN UP", () => {
             let password1 = talent.password;
             signUpPage.PasswordTextBox.clear().type(talent.password, { force: true })
             signUpPage.RepeatPasswordTextBox.clear().type(talent.password, { force: true })
-
             signUpPage.PasswordTextBox.should('have.value', password1)
             signUpPage.RepeatPasswordTextBox.should('have.value', password1)
 
