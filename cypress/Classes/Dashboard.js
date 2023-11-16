@@ -3,7 +3,7 @@ import { Talent } from "./Talent"
 export class Dashboard {
 
     get DropDownElement() {
-        return cy.get('main > .ant-avatar').invoke('show')
+        return cy.get('.dashboardNavbar__profile > svg g ').invoke('show')
 
     }
     get ProfileContainer() {
@@ -27,7 +27,7 @@ export class Dashboard {
         return cy.get('.sidebar p')
     }
     get ProfileNameDivInDashBoardDetails() {
-        return cy.get('.dashboard__details-container-box p:nth-child(2)')
+        return cy.get('.dashboard__details-container-box p:nth-child(2)').eq(0)
     }
     get WelcomeDivInDashBaordHeading() {
         return cy.get('.dashboard__details-heading')
@@ -52,7 +52,7 @@ export class Dashboard {
         this.CheckUserName(talent)
     }
     ViewProfile(talent) {
-        this.DropDownElement.click()
+        this.DropDownElement.click({force:true})
         this.ProfileContainer.invoke('show').should('be.visible')
         this.ViewProfileLink.should('exist').click()
     }

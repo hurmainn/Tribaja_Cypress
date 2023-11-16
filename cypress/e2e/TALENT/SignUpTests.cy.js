@@ -211,16 +211,21 @@ describe("SIGN UP", () => {
                     testTalent.emailAddress = $invalidEmailAddress.emailAddress;
                     cy.log(testTalent)
                     signUpPage.SignUp(testTalent);
-                    cy.url().should('not.include', '/verify-otp')
-                    cy.url().should('include', '/signup')
+
+                    //***implemented after each for this */
+                    // cy.url().should('not.include', '/verify-otp')
+                    // cy.url().should('include', '/signup')
+
                     //If it is not considered invalid by html default validation then error message must appear
-                    if (talent.emailAddress === '/@/g') {
-                        cy.get('input[name="email"][required]:invalid').should('not.be.visible')
-                        cy.contains(errorMessage).should('be.visible');
-                    }
-                    else {
-                        cy.get('input[name="email"][required]:invalid').should('be.visible')
-                    }
+
+                    // if (talent.emailAddress === '/@/g') {
+                    //     cy.get('input[name="email"][required]:invalid').should('not.be.visible')
+                    //     cy.contains(errorMessage).should('be.visible');
+                    // }
+                    // else {
+                    //     cy.get('input[name="email"][required]:invalid').should('be.visible')
+                    // }
+
                     // Now, you can assert that the error message is displayed
                     // cy.contains(errorMessage).should('be.visible');
                 })

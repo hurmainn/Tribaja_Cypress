@@ -1,8 +1,10 @@
 import { getmyCookie } from "../utils/getAllCookies"
 import { Talent } from "./Talent"
 import { ForgetPassword } from "./ForgetPassword"
+import { SignUpPage } from "./SignUpPage"
 export class LoginPage {
     constructor() {
+        this.signupPage=new SignUpPage()
         //  this.talent = new Talent()
         // this.forgetPassword = new ForgetPassword()
     }
@@ -29,8 +31,9 @@ export class LoginPage {
     }
     LogIn(talent) {
         // cy.visit('https://app.staging.tribaja.co/')
-        cy.get('button').contains('Login').as('LoginPageButton')
-        cy.get('@LoginPageButton').click({ force: true })
+        //cy.get('button').contains('Login').as('LoginPageButton')
+        // cy.get('@LoginPageButton').click({ force: true })
+        this.signupPage.LoginButton.click({force:true})
         if (talent.emailAddress !== '') {
             this.EmailAddressTextBox.type(talent.emailAddress)
         }

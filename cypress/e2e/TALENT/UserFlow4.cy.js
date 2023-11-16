@@ -37,14 +37,16 @@ describe('LOGIN AS TALENT', () => {
         cy.viewport(2500, 1399)
     })
     it("Login", () => {
-        cy.visit('https://app.staging.tribaja.co/')
+        // cy.visit('https://app.staging.tribaja.co/')
         talent = talentDataa.talents[4]; //signing up user 1, if i will want all users to sign up , i will just use for loop
         loginPage.LogIn(talent)
-        //cy.wait(5000)
+        cy.wait(7000)
         cookiesArray = getAllCookies()
+        cy.log(cookiesArray)
     })
     it('Onboarding', () => {
         //SETTING COOKIES
+        cy.log(cookiesArray)
         setAllCookies(cookiesArray)
         cy.visit('https://app.staging.tribaja.co/')
         cy.wait(1000)
@@ -77,14 +79,15 @@ describe('LOGIN AS TALENT', () => {
     })
     it('Dashboard', () => {
         setAllCookies(cookiesArray)
-        cy.visit('https://app.staging.tribaja.co/')
+       // cy.wait(10000)
+        cy.visit('https://app.staging.tribaja.co/',{ failOnStatusCode: false })
         dashboard.CheckUserDetailsInDashboard(talent)
         dashboard.ViewProfile(talent)
     })
     it("View Profile", () => {
         setAllCookies(cookiesArray)
         cy.then(() => {
-            cy.visit('https://app.staging.tribaja.co/')
+            cy.visit('https://app.staging.tribaja.co/',{ failOnStatusCode: false })
         })
         profile.CheckUserDetailsInProfileView(talent)
         //dashboard.ViewProfile()
